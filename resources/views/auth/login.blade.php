@@ -1,28 +1,83 @@
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <title>Peba</title>
+
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Peba.com">
+    <meta name="description" content="Peba">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
 </head>
-<div class="mx-auto col-sm-3">
-    <h2>Авторизация</h2>
-    <div class="">
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="mt-2 col-sm-7">
-                <input class="form-control" placeholder="e-mail" type="email">
+
+<body>
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center vh-100 py-5">
+            <div class="col-sm-10 col-md-8 col-lg-7 col-xl-6 col-xxl-5">
+                <div class="card card-body text-center p-4 p-sm-5">
+                    <h1 class="mb-2">Авторизация</h1>
+                    <p class="mb-0">Нет аккаунта?<a href="/register"> Нажмите чтобы создать аккаунт</a></p>
+                    <form class="mt-sm-4" method="post" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-3 input-group-lg">
+                            <input type="email" class="form-control" placeholder="Введите email">
+                        </div>
+                        <div class="mb-3 position-relative">
+                            <div class="input-group input-group-lg">
+                                <input class="form-control fakepassword" type="password" id="psw-input" placeholder="Введите пароль">
+                                <span class="input-group-text p-0">
+                                       <i class="fakepasswordicon fa-solid fa-eye-slash cursor-pointer p-2 w-40px"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mb-3 d-sm-flex justify-content-between">
+                            <div>
+                                <input type="checkbox" class="form-check-input" id="remember_me" name="remember" >
+                                <label class="form-check-label" for="remember_me">Запомнить меня?</label>
+                            </div>
+                            <a href="/forgot-password">Забыли пароль?</a>
+                        </div>
+                        <div class="d-grid"><button type="submit" class="btn btn-lg btn-primary">Войти</button></div>
+                        <p class="mb-0 mt-3">©2023 <a target="_blank" href="https://www.webestica.com/">Peba.</a> Все права защищенны</p>
+                    </form>
+                </div>
             </div>
-            <div class="mt-2 col-sm-7">
-                <input class="form-control" placeholder="Пароль" type="password">
-            </div>
-            <div class="">
-                <p><a href="/forgot-password"> Забыли пароль?</a></p>
-            </div>
-            <div class="mt-2 col-sm-7">
-                <input class="btn btn-primary" type="submit">
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+
+</main>
 
 
+<!-- =======================
+JS libraries, plugins and custom scripts -->
+
+<!-- Bootstrap JS -->
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="assets/vendor/pswmeter/pswmeter.min.js"></script>
+
+<!-- Theme Functions -->
+<script src="assets/js/functions.js"></script>
+
+</body>
 
 
 
