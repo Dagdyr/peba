@@ -37,11 +37,11 @@
                     <form class="mt-sm-4" method="post" action="{{ route('login') }}">
                         @csrf
                         <div class="mb-3 input-group-lg">
-                            <input type="email" class="form-control" placeholder="Введите email">
+                            <input type="email" class="form-control" name="email" placeholder="Введите email">
                         </div>
                         <div class="mb-3 position-relative">
                             <div class="input-group input-group-lg">
-                                <input class="form-control fakepassword" type="password" id="psw-input" placeholder="Введите пароль">
+                                <input class="form-control fakepassword" name="password" type="password" id="psw-input" placeholder="Введите пароль">
                                 <span class="input-group-text p-0">
                                        <i class="fakepasswordicon fa-solid fa-eye-slash cursor-pointer p-2 w-40px"></i>
                                 </span>
@@ -57,6 +57,16 @@
                         <div class="d-grid"><button type="submit" class="btn btn-lg btn-primary">Войти</button></div>
                         <p class="mb-0 mt-3">©2023 <a target="_blank" href="https://www.webestica.com/">Peba.</a> Все права защищенны</p>
                     </form>
+                    <div class="">
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{$error}}</li>
+                                    @endforeach</ul>
+                                @endif
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -49,6 +49,12 @@
                             <input name="name" type="text" class="form-control" placeholder="Введите имя">
                         </div>
                         <div class="mb-3 input-group-lg">
+                            <input name="lastname"  type="text" class="form-control" placeholder="Введите фамилию">
+                        </div>
+                        <div class="mb-3 input-group-lg">
+                            <input name="birthday" type="date" class="form-control" placeholder="Укажите дату своего рождения">
+                        </div>
+                        <div class="mb-3 input-group-lg">
                             <input name="email" type="email" class="form-control" placeholder="Введите email">
                         </div>
                         <!-- New password -->
