@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('lastname');
+            $table->string('friends_count')->nullable();
             $table->string('email')->unique();
             $table->date('birthday');
             $table->text('about')->nullable();
