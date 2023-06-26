@@ -1,10 +1,43 @@
 @extends('template')
 @section('content')
+
+    <script>
+
+
+        button.addEventListener('click', updateButton);
+
+        function about(){
+            var button =  document.getElementById('change_about');
+            var input =  document.getElementById('about');
+
+            if (button.value === 'Изменить') {
+                button.value = 'Сохранить';
+                input.classList.remove('form-control-plaintext');
+            } else {
+                button.value = 'Изменить';
+                input.classList.add('form-control-plaintext');
+                let token = document.querySelector('input[name="_token"]').value
+                let formData = new FormData()
+                formData.append("about", input.value);
+                formData.append('_token', token);
+                fetch('/updateAbout', {
+                    method: "post",
+                    body: formData
+                }).then(response=>response.json())
+                    .then(result=>{
+                        if(result.result === "success"){
+                            location.reload();
+                        }
+                    })
+            }
+        }
+    </script>
 <body>
 
 <!-- =======================
 Header START -->
 <main>
+
 
     <!-- Container START -->
     <div class="container">
@@ -32,14 +65,14 @@ Header START -->
                             </div>
                             <!-- Button -->
                             <div class="d-flex mt-3 justify-content-center ms-sm-auto">
-                                <button class="btn btn-danger-soft me-2" type="button"> <i class="bi bi-pencil-fill pe-1"></i> Edit profile </button>
+                                <button class="btn btn-danger-soft me-2" type="button"> <i class="bi bi-pencil-fill pe-1"></i> Изменить профиль </button>
                             </div>
                         </div>
                     </div>
                     <!-- Card body END -->
                 </div>
                 <!-- My profile END -->
-
+                    @csrf
                 <!-- Share feed START -->
                 <div class="card card-body">
                     <div class="d-flex mb-3">
@@ -379,7 +412,8 @@ Header START -->
                             </div>
                             <!-- Card body START -->
                             <div class="card-body position-relative pt-0">
-                                <p>{{auth()->user()->about }} <a class="btn btn-primary-soft btn-sm" href="/">  Изменить</a></p>
+                                <input type="text" id="about"  class="form-control-plaintext" value="{{auth()->user()->about}}">
+                                <input id="change_about" onclick="about()" class="btn btn-primary-soft btn-sm col-sm-4" type="button" value="Изменить">
                                 <!-- Date time -->
                                 <ul class="list-unstyled mt-3 mb-0">
                                     <li class="mb-2"> <i class="bi bi-calendar-date fa-fw pe-1"></i> Дата рождения: <strong> {{auth()->user()->birthday}} </strong> </li>
