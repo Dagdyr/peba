@@ -23,12 +23,7 @@
                 fetch('/updateAbout', {
                     method: "post",
                     body: formData
-                }).then(response=>response.json())
-                    .then(result=>{
-                        if(result.result === "success"){
-                            location.reload();
-                        }
-                    })
+                });
             }
         }
     </script>
