@@ -61,7 +61,8 @@ class ProfileController extends Controller
 
     public function updateAbout(Request $request){
         $about = $request->about;
-        $user = new \App\Models\User();
+        $id = auth()->user()->getAuthIdentifier();
+        $user =  \App\Models\User::where('id', $id)->first();
         $user->about = $about;
         $user->save();
         return json_encode(['result'=>'success']);
