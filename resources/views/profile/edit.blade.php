@@ -4,7 +4,40 @@
     <script>
 
 
-        button.addEventListener('click', updateButton);
+        function changeName() {
+            let button = document.getElementById("changeName").innerText;
+            let name = document.getElementById("userName");
+
+            let lastname = document.getElementById("userLastname");
+
+            if (button === 'Изменить имя и фамилию') {
+                document.getElementById("buttonChangeName").innerHTML = '<button id="changeName" onclick="changeName()" class="btn btn-outline-danger" type="button" aria-expanded="false"> сохранить </button>'
+                name.removeAttribute("readonly");
+                name.classList.remove('form-control-plaintext');
+                name.classList.add('form-control');
+                lastname.removeAttribute("readonly");
+                lastname.classList.remove('form-control-plaintext');
+                lastname.classList.add('form-control');
+            } else {
+                document.getElementById("buttonChangeName").innerHTML = '<button  class="btn btn-outline-danger" id="" type="button" data-bs-toggle="dropdown">Изменить профиль </button> <ul class="dropdown-menu"> <li> <button id="changeName" class="dropdown-item" onclick="changeName()">Изменить имя и фамилию</button></li> <li><button id="changeAvatar" class="dropdown-item" onclick="">Изменить изображенияе профиля</button></li></ul>'
+                name.setAttribute("readonly", "readonly");
+                lastname.setAttribute("readonly", "readonly");
+                name.classList.remove('form-control');
+                name.classList.add('form-control-plaintext');
+                lastname.classList.remove('form-control');
+                lastname.classList.add('form-control-plaintext');
+                let token = document.querySelector('input[name="_token"]').value
+                let formData = new FormData()
+                formData.append("name", name.value);
+                formData.append("lastname", lastname.value);
+                formData.append('_token', token);
+                fetch('/updateName', {
+                    method: "post",
+                    body: formData
+                });
+            }
+
+        }
 
         function about(){
             var button =  document.getElementById('change_about');
@@ -13,9 +46,14 @@
             if (button.value === 'Изменить') {
                 button.value = 'Сохранить';
                 input.classList.remove('form-control-plaintext');
+                input.classList.add('form-control');
+                input.removeAttribute("readonly");
             } else {
                 button.value = 'Изменить';
                 input.classList.add('form-control-plaintext');
+                input.classList.remove('form-control');
+                input.classList.add('form-control-plaintext');
+                input.setAttribute("readonly", "readonly");
                 let token = document.querySelector('input[name="_token"]').value
                 let formData = new FormData()
                 formData.append("about", input.value);
@@ -49,18 +87,32 @@ Header START -->
                         <div class="d-sm-flex align-items-start text-center text-sm-start">
                             <div>
                                 <!-- Avatar -->
+
                                 <div class="avatar avatar-xxl mt-n5 mb-3">
-                                    <img class="avatar-img rounded-circle border border-white border-3" src="assets/images/avatar/07.jpg" alt="">
+                                    <img class="avatar-img rounded-circle border border-white border-3" src="{{ Storage::get('8.jpg')}}" alt="">
                                 </div>
                             </div>
                             <div class="ms-sm-4 mt-sm-3">
+                                <div class="input-group mb-3 g-1 row">
                                 <!-- Info -->
-                                <h1 class="mb-0 h5">{{auth()->user()->name}} {{auth()->user()->lastname}}<i class="bi bi-patch-check-fill text-success small"></i></h1>
-                                <p>250 connections</p>
-                            </div>
+                                    <div class="col-sm-3">
+                                <input type="text" aria-label="Имя" class="h5 form-control-plaintext" id="userName" readonly value="{{auth()->user()->name}}">
+                                    </div>
+                                    <div class="col-sm-3">
+                                    <input type="text" aria-label="Фамилия" class="h5 form-control-plaintext" id="userLastname" readonly value="{{auth()->user()->lastname}}">
+                                    </div>
                             <!-- Button -->
-                            <div class="d-flex mt-3 justify-content-center ms-sm-auto">
-                                <button class="btn btn-danger-soft me-2" type="button"> <i class="bi bi-pencil-fill pe-1"></i> Изменить профиль </button>
+                            <div class="col-5 ms-auto" id="buttonChangeName">
+                                    <button  class="btn btn-outline-danger" id="" type="button" data-bs-toggle="dropdown">
+                                        Изменить профиль
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li> <button id="changeName" class="dropdown-item" onclick="changeName()">Изменить имя и фамилию</button></li>
+                                        <li><button id="changeAvatar" class="dropdown-item" onclick="">Изменить изображенияе профиля</button></li>
+                                    </ul>
+                            </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -148,6 +200,7 @@ Header START -->
                             <!-- Card feed action dropdown END -->
                         </div>
                     </div>
+
                     <!-- Card header END -->
                     <!-- Card body START -->
                     <div class="card-body">
@@ -407,7 +460,7 @@ Header START -->
                             </div>
                             <!-- Card body START -->
                             <div class="card-body position-relative pt-0">
-                                <input type="text" id="about"  class="form-control-plaintext" value="{{auth()->user()->about}}">
+                                <input type="text" id="about"  class="form-control-plaintext" readonly value="{{auth()->user()->about}}">
                                 <input id="change_about" onclick="about()" class="btn btn-primary-soft btn-sm col-sm-4" type="button" value="Изменить">
                                 <!-- Date time -->
                                 <ul class="list-unstyled mt-3 mb-0">

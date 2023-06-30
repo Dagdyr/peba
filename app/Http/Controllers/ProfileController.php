@@ -67,4 +67,14 @@ class ProfileController extends Controller
         $user->save();
         return json_encode(['result'=>'success']);
     }
+    public function updateName(Request $request){
+        $name = $request->name;
+        $lastname = $request->lastname;
+        $id = auth()->user()->getAuthIdentifier();
+        $user =  \App\Models\User::where('id', $id)->first();
+        $user->name = $name;
+        $user->lastname = $lastname;
+        $user->save();
+        return json_encode(['result'=>'success']);
+    }
 }
