@@ -84,7 +84,8 @@ class ProfileController extends Controller
         $user = \App\Models\User::where('id', $id)->first();
         $lastimg = $user->img;
         Storage::delete($lastimg);
-        $path = $img->storeAS('assets/images/avatar', $id.'.'.$img->getClientOriginalExtension(), 'public');
+        $img->storeAS('assets/images/avatar', $id.'.'.$img->getClientOriginalExtension(), 'public');
+        $path = 'images/avatar/'.$id.'.'.$img->getClientOriginalExtension();
         $user->img = $path;
         $user->save();
         return json_encode(['result'=>'success']);

@@ -42,7 +42,7 @@
                 lastname.classList.remove('form-control-plaintext');
                 lastname.classList.add('form-control');
             } else {
-                document.getElementById("buttonChangeName").innerHTML = '<button  class="btn btn-outline-danger" id="" type="button" data-bs-toggle="dropdown">Изменить профиль </button> <ul class="dropdown-menu"> <li> <button id="changeName" class="dropdown-item" onclick="changeName()">Изменить имя и фамилию</button></li> <li><button id="changeAvatar" class="dropdown-item" onclick="">Изменить изображенияе профиля</button></li></ul>'
+                document.getElementById("buttonChangeName").innerHTML = '<button class="btn btn-outline-danger" id="" type="button" data-bs-toggle="dropdown" aria-expanded="false">Изменить профиль </button> <ul class="dropdown-menu"> <li> <button id="changeName" class="dropdown-item" onclick="changeName()">Изменить имя и фамилию</button></li> <li><button class="dropdown-item"  type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Изменить изображение профиля</button></li> <li><button onclick="logout()" class="dropdown-item"  type="button">Выйти</button></li> </ul> <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <h1 class="modal-title fs-5" id="staticBackdropLabel">Изменить аватарку</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button> </div> <div class="modal-body"> <form id="img_form" enctype="multipart/form-data"> <input class="form-control" id="img_input" name="img" type="file"> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button> <input type="button" id="changeAvatar" onclick="changeImg()" class="btn btn-primary" data-bs-dismiss="modal" value="Сохранить"></form> </div> </div> </div> </div>'
                 name.setAttribute("readonly", "readonly");
                 lastname.setAttribute("readonly", "readonly");
                 name.classList.remove('form-control');
@@ -87,6 +87,16 @@
                 });
             }
         }
+        function logout(){
+            let token = document.querySelector('input[name="_token"]').value
+            let formData = new FormData()
+            formData.append('_token', token);
+            fetch('/logout', {
+                method: "post",
+                body: formData
+            });
+            location.reload();
+        }
     </script>
 <body>
 
@@ -112,7 +122,7 @@ Header START -->
                                 <!-- Avatar -->
 
                                 <div class="avatar avatar-xxl mt-n5 mb-3">
-                                    <img class="avatar-img rounded-circle border border-white border-3" src="storage/{{auth()->user()->img}}" alt="">
+                                    <img class="avatar-img rounded-circle border border-white border-3" src="{{auth()->user()->img}}" alt="">
                                 </div>
                             </div>
                             <div class="ms-sm-4 mt-sm-3">
@@ -132,6 +142,7 @@ Header START -->
                                     <ul class="dropdown-menu">
                                         <li> <button id="changeName" class="dropdown-item" onclick="changeName()">Изменить имя и фамилию</button></li>
                                         <li><button class="dropdown-item"  type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Изменить изображение профиля</button></li>
+                                        <li><button onclick="logout()" class="dropdown-item"  type="button">Выйти</button></li>
                                     </ul>
                                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -141,7 +152,7 @@ Header START -->
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        @csrf
+
                                                         <form id="img_form" enctype="multipart/form-data">
                                                             <input class="form-control" id="img_input" name="img" type="file">
                                                     </div>
@@ -156,7 +167,7 @@ Header START -->
 
                             </div>
                                 </div>
-
+                                @csrf
                             </div>
                         </div>
                     </div>
@@ -169,7 +180,7 @@ Header START -->
                     <div class="d-flex mb-3">
                         <!-- Avatar -->
                         <div class="avatar avatar-xs me-2">
-                            <a href="#"> <img class="avatar-img rounded-circle" src="storage/{{auth()->user()->img}}" alt=""> </a>
+                            <a href="#"> <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt=""> </a>
                         </div>
                         <!-- Post input -->
                         <form class="w-100">

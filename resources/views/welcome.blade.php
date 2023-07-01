@@ -18,7 +18,7 @@
                         <div class="d-flex mb-3">
                             <!-- Avatar -->
                             <div class="avatar avatar-xs me-2">
-                                <a href="/profile"> <img class="avatar-img rounded-circle" src="/public/storage/assets/images/avatar/03.jpg" alt=""> </a>
+                                <a href="/profile"> <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt=""> </a>
                             </div>
                             <!-- Post input -->
                             <form class="w-100">

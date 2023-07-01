@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('birthday');
             $table->text('about')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('img')->default('images/avatar/underfined.png');
+            $table->string('img')->default('images/avatar/placeholder.jpg');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

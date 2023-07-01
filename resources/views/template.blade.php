@@ -9,12 +9,7 @@
     <meta name="author" content="Peba.com">
     <meta name="description" content="Bootstrap 5 based Social Media Network and Community Theme">
 
-    <style>
-        .dura{
-            margin-bottom: 0px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
@@ -176,8 +171,8 @@
                         <!-- Notification dropdown END -->
 
                         <li class="nav-item ms-2 dropdown">
-                            <a class="nav-link btn icon-md p-0" href="/profile" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img class="avatar-img rounded-2" src="storage/{{auth()->user()->img}}" alt="">
+                            <a class="nav-link btn icon-md p-0" href="/profile">
+                                <img class="avatar-img rounded-2" src="{{auth()->user()->img}}" alt="">
                             </a>
                             <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3" aria-labelledby="profileDropdown">
                                 <!-- Profile info -->
