@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
 });
     Route::post('/updateAbout', [ProfileController::class, 'updateAbout'])->middleware('auth');
     Route::post('/updateName', [ProfileController::class,  'updateName'])->middleware('auth');
+    Route::post('/updateImg', [ProfileController::class,  'updateImg'])->middleware('auth');
 
 
 require __DIR__.'/auth.php';

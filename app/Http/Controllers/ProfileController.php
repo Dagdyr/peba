@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -74,6 +75,17 @@ class ProfileController extends Controller
         $user =  \App\Models\User::where('id', $id)->first();
         $user->name = $name;
         $user->lastname = $lastname;
+        $user->save();
+        return json_encode(['result'=>'success']);
+    }
+    public function updateImg(Request $request){
+        $img = $request->file('img');
+        $id = auth()->user()->getAuthIdentifier();
+        $user = \App\Models\User::where('id', $id)->first();
+        $lastimg = $user->img;
+        Storage::delete($lastimg);
+        $path = $img->storeAS('assets/images/avatar', $id.'.'.$img->getClientOriginalExtension(), 'public');
+        $user->img = $path;
         $user->save();
         return json_encode(['result'=>'success']);
     }

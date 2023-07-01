@@ -6,7 +6,7 @@
     <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Webestica.com">
+    <meta name="author" content="Peba.com">
     <meta name="description" content="Bootstrap 5 based Social Media Network and Community Theme">
 
     <style>
@@ -16,87 +16,31 @@
 
     </style>
 
-    <!-- Dark mode -->
-    <script>
-        const storedTheme = localStorage.getItem('theme')
-
-        const getPreferredTheme = () => {
-            if (storedTheme) {
-                return storedTheme
-            }
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-        }
-
-        const setTheme = function (theme) {
-            if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.setAttribute('data-bs-theme', 'dark')
-            } else {
-                document.documentElement.setAttribute('data-bs-theme', theme)
-            }
-        }
-
-        setTheme(getPreferredTheme())
-
-        window.addEventListener('DOMContentLoaded', () => {
-            var el = document.querySelector('.theme-icon-active');
-            if(el != 'undefined' && el != null) {
-                const showActiveTheme = theme => {
-                    const activeThemeIcon = document.querySelector('.theme-icon-active use')
-                    const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-                    const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
-
-                    document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-                        element.classList.remove('active')
-                    })
-
-                    btnToActive.classList.add('active')
-                    activeThemeIcon.setAttribute('href', svgOfActiveBtn)
-                }
-
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-                    if (storedTheme !== 'light' || storedTheme !== 'dark') {
-                        setTheme(getPreferredTheme())
-                    }
-                })
-
-                showActiveTheme(getPreferredTheme())
-
-                document.querySelectorAll('[data-bs-theme-value]')
-                    .forEach(toggle => {
-                        toggle.addEventListener('click', () => {
-                            const theme = toggle.getAttribute('data-bs-theme-value')
-                            localStorage.setItem('theme', theme)
-                            setTheme(theme)
-                            showActiveTheme(theme)
-                        })
-                    })
-
-            }
-        })
-
-    </script>
-
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/public/storage/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 
     <!-- Plugins CSS -->
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/vendor/font-awesome/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/vendor/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/vendor/OverlayScrollbars-master/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/vendor/tiny-slider/dist/tiny-slider.css">
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/vendor/choices.js/public/assets/styles/choices.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/vendor/glightbox-master/dist/css/glightbox.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/vendor/dropzone/dist/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/vendor/flatpickr/dist/flatpickr.css">
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/vendor/plyr/plyr.css">
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/vendor/zuck.js/dist/zuck.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/OverlayScrollbars-master/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/tiny-slider/dist/tiny-slider.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/glightbox-master/dist/css/glightbox.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/dropzone/dist/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/flatpickr/dist/flatpickr.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/plyr/plyr.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/zuck.js/dist/zuck.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 
     <!-- Theme CSS -->
-    <link rel="stylesheet" type="text/css" href="/public/storage/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/css/style.css">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GMKQ4P9YMZ"></script>
@@ -233,7 +177,7 @@
 
                         <li class="nav-item ms-2 dropdown">
                             <a class="nav-link btn icon-md p-0" href="/profile" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img class="avatar-img rounded-2" src="assets/images/avatar/07.jpg" alt="">
+                                <img class="avatar-img rounded-2" src="storage/{{auth()->user()->img}}" alt="">
                             </a>
                             <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3" aria-labelledby="profileDropdown">
                                 <!-- Profile info -->
@@ -297,21 +241,21 @@
 JS libraries, plugins and custom scripts -->
 
 <!-- Bootstrap JS -->
-<script src="/public/storage/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Vendors -->
-<script src="/public/storage/assets/vendor/tiny-slider/dist/tiny-slider.js"></script>
-<script src="/public/storage/assets/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js"></script>
-<script src="/public/storage/assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
-<script src="/public/storage/assets/vendor/glightbox-master/dist/js/glightbox.min.js"></script>
-<script src="/public/storage/assets/vendor/flatpickr/dist/flatpickr.min.js"></script>
-<script src="/public/storage/assets/vendor/plyr/plyr.js"></script>
-<script src=/public/storage/assets/vendor/dropzone/dist/min/dropzone.min.js"></script>
-<script src="/public/storage/assets/vendor/zuck.js/dist/zuck.min.js"></script>
-<script src="/public/storage/assets/js/zuck-stories.js"></script>
+<script src="assets/vendor/tiny-slider/dist/tiny-slider.js"></script>
+<script src="assets/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js"></script>
+<script src="assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="assets/vendor/glightbox-master/dist/js/glightbox.min.js"></script>
+<script src="assets/vendor/flatpickr/dist/flatpickr.min.js"></script>
+<script src="assets/vendor/plyr/plyr.js"></script>
+<script src="assets/vendor/dropzone/dist/min/dropzone.min.js"></script>
+<script src="assets/vendor/zuck.js/dist/zuck.min.js"></script>
+<script src="assets/js/zuck-stories.js"></script>
 
 <!-- Theme Functions -->
-<script src="/public/storage/assets/js/functions.js"></script>
+<script src="assets/js/functions.js"></script>
 
 
 </body>
