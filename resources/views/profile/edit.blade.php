@@ -3,6 +3,22 @@
 
     <script>
 
+        function addPost(){
+            let input = document.getElementById("addPost_input");
+
+            if(input.value == ''){
+                alert("Вы ничего не написали");
+            }else{
+                let token = document.querySelector('input[name="_token"]').value
+                let formData = new FormData(addPost_form);
+                formData.append('_token', token);
+                fetch('/addPost', {
+                    method: "post",
+                    body: formData
+                })
+
+            }
+        }
 
         function changeImg(){
             let button = document.getElementById("changeAvatar");
@@ -175,48 +191,26 @@ Header START -->
                 </div>
                 <!-- My profile END -->
                     @csrf
-                <!-- Share feed START -->
+                <!-- Добавление поста -->
                 <div class="card card-body">
                     <div class="d-flex mb-3">
-                        <!-- Avatar -->
                         <div class="avatar avatar-xs me-2">
-                            <a href="#"> <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt=""> </a>
+                            <a href="#"> <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt=""></a>
                         </div>
-                        <!-- Post input -->
                         <form class="w-100">
-                            <input class="form-control pe-4 border-0" placeholder="Share your thoughts..." data-bs-toggle="modal" data-bs-target="#modalCreateFeed">
+                            <input class="form-control pe-4 border-0" placeholder="Что у вас нового?" data-bs-toggle="modal" data-bs-target="#modalCreateFeed">
                         </form>
                     </div>
-                    <!-- Share feed toolbar START -->
                     <ul class="nav nav-pills nav-stack small fw-normal">
                         <li class="nav-item">
-                            <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionPhoto"> <i class="bi bi-image-fill text-success pe-2"></i>Photo</a>
+                            <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionPhoto"> <i class="bi bi-image-fill text-success pe-2"></i>Фото</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionVideo"> <i class="bi bi-camera-reels-fill text-info pe-2"></i>Video</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link bg-light py-1 px-2 mb-0" data-bs-toggle="modal" data-bs-target="#modalCreateEvents"> <i class="bi bi-calendar2-event-fill text-danger pe-2"></i>Event </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#modalCreateFeed"> <i class="bi bi-emoji-smile-fill text-warning pe-2"></i>Feeling /Activity</a>
-                        </li>
-                        <li class="nav-item dropdown ms-sm-auto">
-                            <a class="nav-link bg-light py-1 px-2 mb-0" href="#" id="feedActionShare" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots"></i>
-                            </a>
-                            <!-- Dropdown menu -->
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="feedActionShare">
-                                <li><a class="dropdown-item" href="#"> <i class="bi bi-envelope fa-fw pe-2"></i>Create a poll</a></li>
-                                <li><a class="dropdown-item" href="#"> <i class="bi bi-bookmark-check fa-fw pe-2"></i>Ask a question </a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#"> <i class="bi bi-pencil-square fa-fw pe-2"></i>Help</a></li>
-                            </ul>
+                            <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionVideo"> <i class="bi bi-camera-reels-fill text-info pe-2"></i>Видео</a>
                         </li>
                     </ul>
-                    <!-- Share feed toolbar END -->
                 </div>
-                <!-- Share feed END -->
+                <!-- Добавление поста конец -->
 
                 <!-- Card feed item START -->
                 <div class="card">
@@ -649,66 +643,39 @@ Header START -->
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
 
-<!-- Modal create Feed START -->
-<div class="modal fade" id="modalCreateFeed" tabindex="-1" aria-labelledby="modalLabelCreateFeed" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <!-- Modal feed header START -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLabelCreateFeed">Create post</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <!-- Modal feed header END -->
-
-            <!-- Modal feed body START -->
-            <div class="modal-body">
-                <!-- Add Feed -->
-                <div class="d-flex mb-3">
-                    <!-- Avatar -->
-                    <div class="avatar avatar-xs me-2">
-                        <img class="avatar-img rounded-circle" src="assets/images/avatar/03.jpg" alt="">
+        <!-- Добавление поста окно -->
+        <div class="modal fade" id="modalCreateFeed" tabindex="-1" aria-labelledby="modalLabelCreateFeed" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabelCreateFeed">Добавить запись</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="Добавить запись" aria-label="Close"></button>
                     </div>
-                    <!-- Feed box  -->
-                    <form class="w-100">
-                        <textarea class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Share your thoughts..." autofocus></textarea>
-                    </form>
-                </div>
-                <!-- Feed rect START -->
-                <div class="hstack gap-2">
-                    <a class="icon-md bg-success bg-opacity-10 text-success rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Photo"> <i class="bi bi-image-fill"></i> </a>
-                    <a class="icon-md bg-info bg-opacity-10 text-info rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Video"> <i class="bi bi-camera-reels-fill"></i> </a>
-                    <a class="icon-md bg-danger bg-opacity-10 text-danger rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Events"> <i class="bi bi-calendar2-event-fill"></i> </a>
-                    <a class="icon-md bg-warning bg-opacity-10 text-warning rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Feeling/Activity"> <i class="bi bi-emoji-smile-fill"></i> </a>
-                    <a class="icon-md bg-light text-secondary rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Check in"> <i class="bi bi-geo-alt-fill"></i> </a>
-                    <a class="icon-md bg-primary bg-opacity-10 text-primary rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag people on top"> <i class="bi bi-tag-fill"></i> </a>
-                </div>
-                <!-- Feed rect END -->
-            </div>
-            <!-- Modal feed body END -->
-
-            <!-- Modal feed footer -->
-            <div class="modal-footer row justify-content-between">
-                <!-- Select -->
-                <div class="col-lg-3">
-                    <select class="form-select js-choice" data-position="top" data-search-enabled="false">
-                        <option value="PB">Public</option>
-                        <option value="PV">Friends</option>
-                        <option value="PV">Only me</option>
-                        <option value="PV">Custom</option>
-                    </select>
-                </div>
-                <!-- Button -->
-                <div class="col-lg-8 text-sm-end">
-                    <button type="button" class="btn btn-danger-soft me-2"> <i class="bi bi-camera-video-fill pe-1"></i> Live video</button>
-                    <button type="button" class="btn btn-success-soft">Post</button>
+                    <div class="modal-body">
+                        <div class="d-flex mb-3">
+                            <div class="avatar avatar-xs me-2">
+                                <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt="">
+                            </div>
+                            <form id="addPost_form" enctype="multipart/form-data" class="w-100">
+                                <textarea name="content" id="addPost_input" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Что у вас нового?" autofocus></textarea>
+                            </form>
+                        </div>
+                        <div class="hstack gap-2">
+                            <a class="icon-md bg-success bg-opacity-10 text-success rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Photo"> <i class="bi bi-image-fill"></i> </a>
+                            <a class="icon-md bg-info bg-opacity-10 text-info rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Video"> <i class="bi bi-camera-reels-fill"></i> </a>
+                        </div>
+                    </div>
+                    <div class="modal-footer row justify-content-between">
+                        <form>
+                            <div class="col-lg-8 align-self-end">
+                                <input type="button" id="addPost_button" onclick="addPost()" aria-label="Close" data-bs-dismiss="modal" class="btn btn-success-soft" value="Опубликовать">
+                        </form>
+                    </div>
                 </div>
             </div>
-            <!-- Modal feed footer -->
-
         </div>
-    </div>
-</div>
-<!-- Modal create feed END -->
+        </div>
+        <!-- Добавление конца окно конец -->
 
 <!-- Modal create Feed photo START -->
 <div class="modal fade" id="feedActionPhoto" tabindex="-1" aria-labelledby="feedActionPhotoLabel" aria-hidden="true">
@@ -776,6 +743,8 @@ Header START -->
             <!-- Modal feed body START -->
             <div class="modal-body">
                 <!-- Add Feed -->
+                <div class="modal-body">
+                    <!-- Add Feed -->
                 <div class="d-flex mb-3">
                     <!-- Avatar -->
                     <div class="avatar avatar-xs me-2">
