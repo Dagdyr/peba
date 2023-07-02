@@ -1,5 +1,24 @@
 @extends('template')
 @section('content')
+
+    <script>
+        function addPost(){
+            let input = document.getElementById("addPost_input");
+
+            if(input.value == ''){
+                alert("Вы ничего не написали");
+            }else{
+                let token = document.querySelector('input[name="_token"]').value
+                let formData = new FormData(addPost_form);
+                formData.append('_token', token);
+                fetch('/addPost', {
+                    method: "post",
+                    body: formData
+                })
+
+            }
+        }
+    </script>
         <!-- Container START -->
         <div class="container">
             <div class="row g-4">
@@ -13,48 +32,63 @@
                 <div class="col-md-8 col-lg-6 vstack gap-4">
 
 
-                    <!-- Share feed START -->
+                    <!-- Добавление поста -->
                     <div class="card card-body">
                         <div class="d-flex mb-3">
-                            <!-- Avatar -->
                             <div class="avatar avatar-xs me-2">
-                                <a href="/profile"> <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt=""> </a>
+                                <a href="/profile"> <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}"> </a>
                             </div>
-                            <!-- Post input -->
                             <form class="w-100">
-                                <textarea class="form-control pe-4 border-0" rows="2" data-autoresize placeholder="Оставьте своё мнение..."></textarea>
+                                <input class="form-control pe-4 border-0" placeholder="Что у вас нового?" data-bs-toggle="modal" data-bs-target="#modalCreateFeed">
                             </form>
                         </div>
-                        <!-- Share feed toolbar START -->
                         <ul class="nav nav-pills nav-stack small fw-normal">
                             <li class="nav-item">
-                                <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionPhoto"> <i class="bi bi-image-fill text-success pe-2"></i>Photo</a>
+                                <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionPhoto"> <i class="bi bi-image-fill text-success pe-2"></i>Фото</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionVideo"> <i class="bi bi-camera-reels-fill text-info pe-2"></i>Video</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link bg-light py-1 px-2 mb-0" data-bs-toggle="modal" data-bs-target="#modalCreateEvents"> <i class="bi bi-calendar2-event-fill text-danger pe-2"></i>Event </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#modalCreateFeed"> <i class="bi bi-emoji-smile-fill text-warning pe-2"></i>Feeling /Activity</a>
+                                <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionVideo"> <i class="bi bi-camera-reels-fill text-info pe-2"></i>Видео</a>
                             </li>
                             <li class="nav-item dropdown ms-lg-auto">
                                 <a class="nav-link bg-light py-1 px-2 mb-0" href="#" id="feedActionShare" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots"></i>
                                 </a>
-                                <!-- Dropdown menu -->
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="feedActionShare">
-                                    <li><a class="dropdown-item" href="#"> <i class="bi bi-envelope fa-fw pe-2"></i>Create a poll</a></li>
-                                    <li><a class="dropdown-item" href="#"> <i class="bi bi-bookmark-check fa-fw pe-2"></i>Ask a question </a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#"> <i class="bi bi-pencil-square fa-fw pe-2"></i>Help</a></li>
-                                </ul>
                             </li>
                         </ul>
-                        <!-- Share feed toolbar END -->
                     </div>
-                    <!-- Share feed END -->
+                    <!-- Добавление поста конец -->
+                    <!-- Добавление поста окно -->
+                    <div class="modal fade" id="modalCreateFeed" tabindex="-1" aria-labelledby="modalLabelCreateFeed" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalLabelCreateFeed">Добавить запись</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="Добавить запись" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="d-flex mb-3">
+                                        <div class="avatar avatar-xs me-2">
+                                            <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt="">
+                                        </div>
+                                        <form id="addPost_form" enctype="multipart/form-data" class="w-100">
+                                            <textarea name="content" id="addPost_input" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Что у вас нового?" autofocus></textarea>
+                                        </form>
+                                    </div>
+                                    <div class="hstack gap-2">
+                                        <a class="icon-md bg-success bg-opacity-10 text-success rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Photo"> <i class="bi bi-image-fill"></i> </a>
+                                        <a class="icon-md bg-info bg-opacity-10 text-info rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Video"> <i class="bi bi-camera-reels-fill"></i> </a>
+                                    </div>
+                                </div>
+                                <div class="modal-footer row justify-content-between">
+                                    <form>
+                                        <div class="col-lg-8 align-self-end">
+                                            <input type="button" id="" data-bs-dismiss="modal" onclick="addPost()" class="btn btn-success-soft" value="Опубликовать"></form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Добавление конца окно конец -->
 
                     <!-- Card feed item START -->
                     <div class="card">
@@ -113,6 +147,7 @@
                                         <i class="bi bi-reply-fill flip-horizontal ps-1"></i>Share (3)
                                     </a>
                                     <!-- Card share action dropdown menu -->
+                                    @csrf
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardShareAction">
                                         <li><a class="dropdown-item" href="#"> <i class="bi bi-envelope fa-fw pe-2"></i>Send via Direct Message</a></li>
                                         <li><a class="dropdown-item" href="#"> <i class="bi bi-bookmark-check fa-fw pe-2"></i>Bookmark </a></li>
