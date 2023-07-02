@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/updateAbout', [ProfileController::class, 'updateAbout'])->middleware('auth');
     Route::post('/updateName', [ProfileController::class,  'updateName'])->middleware('auth');
     Route::post('/updateImg', [ProfileController::class,  'updateImg'])->middleware('auth');
+
+Route::post('/addPost', [PostController::class,  'addPost'])->middleware('auth');
 
 
 require __DIR__.'/auth.php';
