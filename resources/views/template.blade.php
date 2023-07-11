@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="storage/assets/images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
     <!-- Google Font -->
@@ -20,18 +20,21 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 
     <!-- Plugins CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/OverlayScrollbars-master/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/tiny-slider/dist/tiny-slider.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/choices.js/public/assets/styles/choices.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/glightbox-master/dist/css/glightbox.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/dropzone/dist/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/flatpickr/dist/flatpickr.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/plyr/plyr.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/zuck.js/dist/zuck.min.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/OverlayScrollbars-master/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/tiny-slider/dist/tiny-slider.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/glightbox-master/dist/css/glightbox.min.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/dropzone/dist/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/dropzone/dist/basic.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/dropzone/dist/min/basic.min.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/flatpickr/dist/flatpickr.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/plyr/plyr.css">
+    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/zuck.js/dist/zuck.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 
 
     <!-- Theme CSS -->
@@ -236,21 +239,24 @@
 JS libraries, plugins and custom scripts -->
 
 <!-- Bootstrap JS -->
-<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="storage/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Vendors -->
-<script src="assets/vendor/tiny-slider/dist/tiny-slider.js"></script>
-<script src="assets/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js"></script>
-<script src="assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
-<script src="assets/vendor/glightbox-master/dist/js/glightbox.min.js"></script>
-<script src="assets/vendor/flatpickr/dist/flatpickr.min.js"></script>
-<script src="assets/vendor/plyr/plyr.js"></script>
-<script src="assets/vendor/dropzone/dist/min/dropzone.min.js"></script>
-<script src="assets/vendor/zuck.js/dist/zuck.min.js"></script>
-<script src="assets/js/zuck-stories.js"></script>
+<script src="storage/assets/vendor/tiny-slider/dist/tiny-slider.js"></script>
+<script src="storage/assets/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js"></script>
+<script src="storage/assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="storage/assets/vendor/glightbox-master/dist/js/glightbox.min.js"></script>
+<script src="storage/assets/vendor/flatpickr/dist/flatpickr.min.js"></script>
+<script src="storage/assets/vendor/plyr/plyr.js"></script>
+<script src="storage/assets/vendor/dropzone/dist/dropzone-amd-module.js"></script>
+<script src="storage/assets/vendor/dropzone/dist/dropzone.js"></script>
+<script src="storage/assets/vendor/zuck.js/dist/zuck.min.js"></script>
+<script src="storage/assets/js/zuck-stories.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <!-- Theme Functions -->
-<script src="assets/js/functions.js"></script>
+<script src="storage/assets/js/functions.js"></script>
 
 
 </body>

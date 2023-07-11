@@ -1,6 +1,6 @@
 @extends('template')
 @section('content')
-
+    {{--скрипт вытягивающий информацию из формы если она не пустая и отправляющий ее на сервер--}}
     <script>
         function addPost(){
             let input = document.getElementById("addPost_input");
@@ -72,11 +72,18 @@
                                         </div>
                                         <form id="addPost_form" enctype="multipart/form-data" class="w-100">
                                             <textarea name="content" id="addPost_input" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Что у вас нового?" autofocus></textarea>
+                                            <input id="img_post" name="img_post[]" multiple type="file">
+                                            <input id="video_post" name="video_post[]" type="file">
+                                            <div class="input-file-list"></div>
                                         </form>
                                     </div>
                                     <div class="hstack gap-2">
-                                        <a class="icon-md bg-success bg-opacity-10 text-success rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Photo"> <i class="bi bi-image-fill"></i> </a>
-                                        <a class="icon-md bg-info bg-opacity-10 text-info rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Video"> <i class="bi bi-camera-reels-fill"></i> </a>
+                                        <label for="img_post" class="btn icon-md bg-success bg-opacity-10 text-success rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Photo" >
+                                            <i class="bi bi-image-fill"></i>
+                                        </label>
+                                        <label for="video_post" class="btn icon-md bg-info bg-opacity-10 text-info rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Video" >
+                                            <i class="bi bi-camera-reels-fill"></i>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="modal-footer row justify-content-between">

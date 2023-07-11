@@ -3,10 +3,12 @@
 
     <script>
 
+        {{--скрипт вытягивающий информацию из формы если она не пустая и отправляющий ее на сервер--}}
         function addPost(){
             let input = document.getElementById("addPost_input");
+            let file = document.getElementById("file_post");
 
-            if(input.value == ''){
+            if(input.value == '' || file.value == ''){
                 alert("Вы ничего не написали");
             }else{
                 let token = document.querySelector('input[name="_token"]').value
@@ -19,7 +21,7 @@
 
             }
         }
-
+        {{--Скрипт для изменеия аватара, в случае если форма не пустая скрипт читает из нее файл и отправляет его на сервер, при получении результата "success" обновляем страницу--}}
         function changeImg(){
             let button = document.getElementById("changeAvatar");
             let img = document.getElementById("img_input");
@@ -42,7 +44,7 @@
 
             }
         }
-
+        {{--скрипт для изменения имени и фамилии--}}
         function changeName() {
             let button = document.getElementById("changeName").innerText;
             let name = document.getElementById("userName");
@@ -77,7 +79,7 @@
             }
 
         }
-
+        {{--скрипт для изменения информаци о себе --}}
         function about(){
             var button =  document.getElementById('change_about');
             var input =  document.getElementById('about');
@@ -103,6 +105,7 @@
                 });
             }
         }
+        {{--скрипт для выхода со страницы--}}
         function logout(){
             let token = document.querySelector('input[name="_token"]').value
             let formData = new FormData()
@@ -200,14 +203,6 @@ Header START -->
                             <input class="form-control pe-4 border-0" placeholder="Что у вас нового?" data-bs-toggle="modal" data-bs-target="#modalCreateFeed">
                         </form>
                     </div>
-                    <ul class="nav nav-pills nav-stack small fw-normal">
-                        <li class="nav-item">
-                            <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionPhoto"> <i class="bi bi-image-fill text-success pe-2"></i>Фото</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link bg-light py-1 px-2 mb-0" href="#!" data-bs-toggle="modal" data-bs-target="#feedActionVideo"> <i class="bi bi-camera-reels-fill text-info pe-2"></i>Видео</a>
-                        </li>
-                    </ul>
                 </div>
                 <!-- Добавление поста конец -->
 
@@ -642,6 +637,56 @@ Header START -->
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
 
+{{--<!-- Modal create Feed photo START -->
+<div class="modal fade" id="modalCreateFeed" tabindex="-1" aria-labelledby="modalLabelCreateFeed" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabelCreateFeed">Добавить запись</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex mb-3">
+                    <div class="avatar avatar-xs me-2">
+                        <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt="">
+                    </div>
+                    <form id="addPost_form" enctype="multipart/form-data" class="w-100" novalidate>
+                        <div class="">
+                        <textarea name="post_content" id="addPost_input" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Что у вас нового?" autofocus></textarea>
+                         --}}{{--<input id="img_post" name="img_post" type="file">
+                        <input id="video_post" name="video_post" type="file">--}}{{--
+                        </div>
+                        <div class="dropzone addPost_dropzone" id="dropzone">
+                            <div class="">
+                                <div class="dz-message">
+                                    <i class="bi bi-images display-3"></i>
+                                    <p>Выберите файл или перетащите его сюда</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" id="addPost_button" onclick="addPost()" aria-label="Close" data-bs-dismiss="modal" class="btn btn-success-soft" value="Опубликовать">
+                    </form>
+                </div>
+                <script>
+                    var dropzone = new Dropzone("#dropzone", {
+                        createImageThumbnails: false,
+                        addRemoveLinks: true,
+                        url: "(/addPost)"
+                    });
+                </script>
+            </div>
+            <!-- Modal feed body END -->
+            <div class="modal-footer row justify-content-between">
+                <form>
+                    <div class="col-lg-8 align-self-end">
+                        <label type="button" onclick="addPost()" class="btn btn-success-soft" for="addPost_button">Опубликовать</label>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>--}}
+<!-- Modal create Feed photo END -->
+
     <!-- Добавление поста окно -->
     <div class="modal fade" id="modalCreateFeed" tabindex="-1" aria-labelledby="modalLabelCreateFeed" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -655,21 +700,27 @@ Header START -->
                         <div class="avatar avatar-xs me-2">
                             <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt="">
                         </div>
-                        <form id="addPost_form" enctype="multipart/form-data" class="w-100">
-                            <textarea name="content" id="addPost_input" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Что у вас нового?" autofocus></textarea>
+                        <form id="addPost_form" enctype="multipart/form-data" class="w-100 " novalidate>
+                            <textarea name="post_content" id="addPost_input" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Что у вас нового?" autofocus></textarea>
+                            <input id="file_post" name="file" type="file" multiple>
+                            <input type="button" id="addPost_button" onclick="addPost()" aria-label="Close" data-bs-dismiss="modal" class="btn btn-success-soft" value="Опубликовать">
                         </form>
                     </div>
                     <div class="hstack gap-2">
-                        <a class="icon-md bg-success bg-opacity-10 text-success rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Photo"> <i class="bi bi-image-fill"></i> </a>
-                        <a class="icon-md bg-info bg-opacity-10 text-info rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Video"> <i class="bi bi-camera-reels-fill"></i> </a>
+                        <label for="file_post" class="btn icon-md bg-success bg-opacity-10 text-success rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Photo" >
+                            <i class="bi bi-image-fill"></i>
+                        </label>
+                        <label for="file_post" class="btn icon-md bg-info bg-opacity-10 text-info rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Video" >
+                            <i class="bi bi-camera-reels-fill"></i>
+                        </label>
                     </div>
+
                 </div>
+
                 <div class="modal-footer row justify-content-between">
-                    <form>
                         <div class="col-lg-8 align-self-end">
-                            <input type="button" id="addPost_button" onclick="addPost()" aria-label="Close" data-bs-dismiss="modal" class="btn btn-success-soft" value="Опубликовать">
-                    </form>
-                </div>
+                        <label for="addPost_button" aria-label="Close" data-bs-dismiss="modal" class="btn btn-success-soft">Опубликовать</label>
+                    </div>
             </div>
         </div>
     </div>
@@ -677,13 +728,13 @@ Header START -->
     <!-- Добавление конца окно конец -->
 
 
-<!-- Modal create Feed photo START -->
+{{--<!-- Modal create Feed photo START -->
 <div class="modal fade" id="feedActionPhoto" tabindex="-1" aria-labelledby="feedActionPhotoLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <!-- Modal feed header START -->
             <div class="modal-header">
-                <h5 class="modal-title" id="feedActionPhotoLabel">Add post photo</h5>
+                <h5 class="modal-title" id="feedActionPhotoLabel">Добавить запись</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- Modal feed header END -->
@@ -694,21 +745,20 @@ Header START -->
                 <div class="d-flex mb-3">
                     <!-- Avatar -->
                     <div class="avatar avatar-xs me-2">
-                        <img class="avatar-img rounded-circle" src="assets/images/avatar/03.jpg" alt="">
+                        <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt="">
                     </div>
                     <!-- Feed box  -->
                     <form class="w-100">
-                        <textarea class="form-control pe-4 fs-3 lh-1 border-0" rows="2" placeholder="Share your thoughts..."></textarea>
+                        <textarea class="form-control pe-4 fs-3 lh-1 border-0" rows="2" placeholder="Что у вас нового?"></textarea>
                     </form>
                 </div>
 
                 <!-- Dropzone photo START -->
                 <div>
-                    <label class="form-label">Upload attachment</label>
-                    <div class="dropzone dropzone-default card shadow-none" data-dropzone='{"maxFiles":2}'>
+                    <div class="dropzone dropzone-default card shadow-none" data-dropzone='{"maxFiles":10}'>
                         <div class="dz-message">
                             <i class="bi bi-images display-3"></i>
-                            <p>Drag here or click to upload photo.</p>
+                            <p>Выберите файл или перетащите его сюда</p>
                         </div>
                     </div>
                 </div>
@@ -718,10 +768,9 @@ Header START -->
             <!-- Modal feed body END -->
 
             <!-- Modal feed footer -->
-            <div class="modal-footer ">
+            <div class="modal-footer">
                 <!-- Button -->
-                <button type="button" class="btn btn-danger-soft me-2" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success-soft">Post</button>
+                <button type="button" class="btn btn-success-soft ml-0">Опубликовать</button>
             </div>
             <!-- Modal feed footer -->
         </div>
@@ -779,10 +828,10 @@ Header START -->
         </div>
     </div>
 </div>
-<!-- Modal create Feed video END -->
+<!-- Modal create Feed video END -->--}}
 
 <!-- Modal create events START -->
-<div class="modal fade" id="modalCreateEvents" tabindex="-1" aria-labelledby="modalLabelCreateAlbum" aria-hidden="true">
+{{--<div class="modal fade" id="modalCreateEvents" tabindex="-1" aria-labelledby="modalLabelCreateAlbum" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <!-- Modal feed header START -->
@@ -806,7 +855,7 @@ Header START -->
         </div>
     </div>
 </div>
-<!-- Modal create events END -->
+<!-- Modal create events END -->--}}
 
 <!-- =======================
 JS libraries, plugins and custom scripts -->
@@ -815,7 +864,6 @@ JS libraries, plugins and custom scripts -->
 <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Vendors -->
-<script src="assets/vendor/dropzone/dist/dropzone.js"></script>
 <script src="assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
 <script src="assets/vendor/glightbox-master/dist/js/glightbox.min.js"></script>
 <script src="assets/vendor/flatpickr/dist/flatpickr.min.js"></script>
@@ -825,39 +873,3 @@ JS libraries, plugins and custom scripts -->
 
 </body>
 @endsection
-
-
-
-
-
-{{--
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
---}}
