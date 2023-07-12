@@ -2,6 +2,18 @@
 @section('content')
 
     <script>
+        //отображение всех постов
+
+        let token = document.querySelector('input[name="_token"]').value
+        let formData = new FormData();
+        formData.append('_token', token);
+        fetch('/showMyPosts', {
+            method: "post",
+            body: formData
+        }).then(function (response){ return response.json()})
+            .then(function (result){
+                console.log(result);
+            })
 
         {{--скрипт вытягивающий информацию из формы если она не пустая и отправляющий ее на сервер--}}
         function addPost(){
@@ -116,6 +128,7 @@
             });
             location.reload();
         }
+
     </script>
 <body>
 
@@ -702,7 +715,7 @@ Header START -->
                         </div>
                         <form id="addPost_form" enctype="multipart/form-data" class="w-100 " novalidate>
                             <textarea name="post_content" id="addPost_input" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Что у вас нового?" autofocus></textarea>
-                            <input id="file_post" name="file" type="file" multiple>
+                            <input id="file_post" name="file[]" type="file" multiple>
                             <input type="button" id="addPost_button" onclick="addPost()" aria-label="Close" data-bs-dismiss="modal" class="btn btn-success-soft" value="Опубликовать">
                         </form>
                     </div>

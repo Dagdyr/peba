@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/updateImg', [ProfileController::class,  'updateImg'])->middleware('auth');
 
     Route::post('/addPost', [PostController::class,  'addPost'])->middleware('auth');
+    Route::post('/showMyPosts', [PostController::class, 'showMyPosts'])->middleware('auth');
 
 
 require __DIR__.'/auth.php';
