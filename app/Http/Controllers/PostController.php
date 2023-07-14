@@ -10,24 +10,19 @@ class PostController extends Controller
 {
     public function addPost(Request $request){
         if ($request->hasFile('file')){
-            $path = [];
-            $files = [];
-            $files = $request->file('file');
-            $i=0;
-            $post =  new \App\Models\Posts();
-            while ($i<4){
-                $fileExtension = $files[$i]->getClientOriginalExtension();
-                if ($fileExtension == 'jpg' or 'jpeg' or 'png' or 'gif'){
-                    $path[] = $files[$i]->store('assets/images/post', 'public');
-                    $i++;
-                }else{
-                    return json_encode('Extension not supported');
-                }
-            }
-
-            $post->img = implode('; ', $path);
-            $content = $request->post_content;
+            $file = $request->file('file');
             $id = auth()->user()->getAuthIdentifier();
+            $post =  new \App\Models\Posts();
+            $fileExtension = $file->getClientOriginalExtension();
+            if ($fileExtension == 'jpg' or 'jpeg' or 'png' or 'gif'){
+                $name = time().$id.".".$fileExtension;
+                $file->storeAs('assets/images/post', $name, 'public');
+            }else{
+                return json_encode('Extension not supported');
+            }
+            $path = 'images/post/'.$name;
+            $post->img = $path;
+            $content = $request->post_content;
             $post->content = $content;
             $post->author_id = $id;
             $post->save();
@@ -44,8 +39,9 @@ class PostController extends Controller
 
     }
     public function showMyPosts(){
-        $id = auth()->user()->getAuthIdentifier();
-        $MyPosts = Posts::where('author_id', $id)->all();
+        $author_id = auth()->user()->getAuthIdentifier();
+        $MyPosts = Posts::where('author_id', $author_id)->get();
+        $MyPosts->toJson();
         return response()->json($MyPosts);
     }
 }
