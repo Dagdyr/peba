@@ -12,42 +12,42 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="storage/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{asset("storage/assets/images/favicon.ico")}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 
     <!-- Plugins CSS -->
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/font-awesome/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/OverlayScrollbars-master/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/tiny-slider/dist/tiny-slider.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/choices.js/public/assets/styles/choices.min.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/glightbox-master/dist/css/glightbox.min.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/dropzone/dist/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/dropzone/dist/basic.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/dropzone/dist/min/basic.min.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/flatpickr/dist/flatpickr.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/plyr/plyr.css">
-    <link rel="stylesheet" type="text/css" href="storage/assets/vendor/zuck.js/dist/zuck.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset("storage/assets/vendor/font-awesome/css/all.min.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("storage/assets/vendor/OverlayScrollbars-master/css/OverlayScrollbars.min.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("storage/assets/vendor/tiny-slider/dist/tiny-slider.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("storage/assets/vendor/choices.js/public/assets/styles/choices.min.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("storage/assets/vendor/glightbox-master/dist/css/glightbox.min.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("storage/assets/vendor/flatpickr/dist/flatpickr.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("storage/assets/vendor/plyr/plyr.css")}}">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
 
 
     <!-- Theme CSS -->
-    <link rel="stylesheet" type="text/css" href="storage/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{asset("storage/assets/css/style.css")}}">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GMKQ4P9YMZ"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-GMKQ4P9YMZ');
+        window.addEventListener('scroll', function() {
+            var footer = document.querySelector('footer');
+            var scrollPosition = window.innerHeight + window.scrollY;
+            if (scrollPosition >= document.body.offsetHeight) {
+                footer.classList.add('show');
+            } else {
+                footer.classList.remove('show');
+            }
+        });
     </script>
 
 </head>
@@ -62,8 +62,7 @@
                 <div class="container">
                     <!-- Logo START -->
                     <a class="navbar-brand" href="/">
-                        <img class="light-mode-item navbar-brand-item" src="assets/images/logo.svg" alt="logo">
-                        <img class="dark-mode-item navbar-brand-item" src="assets/images/logo.svg" alt="logo">
+                        <img class="light-mode-item navbar-brand-item" src="{{asset("assets/images/logo.svg")}}" alt="logo">
                     </a>
                     <!-- Logo END -->
 
@@ -175,7 +174,7 @@
 
                         <li class="nav-item ms-2 dropdown">
                             <a class="nav-link btn icon-md p-0" href="/profile">
-                                <img class="avatar-img rounded-2" src="{{auth()->user()->img}}" alt="">
+                                <img class="avatar-img rounded-2" src="{{asset(auth()->user()->img)}}" alt="">
                             </a>
                             <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3" aria-labelledby="profileDropdown">
                                 <!-- Profile info -->
@@ -209,55 +208,31 @@
     <main>
         @yield('content')
     </main>
-
+    .
     <!--Footer-->
-    <div class="footer">
-        <ul class="nav small mt-4 justify-content-center lh-1">
-            <li class="nav-item">
-                <a class="nav-link" href="my-profile-about.html">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="settings.html">Settings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" target="_blank" href="https://support.webestica.com/login">Support </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" target="_blank" href="docs/index.html">Docs </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="help.html">Help</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="privacy-and-terms.html">Privacy & terms</a>
-            </li>
-
-        </ul>
-             <p class="small text-center mt-1">©2023 <a class="text-body" target="_blank" href=""> Peba </a></p>
-    </div>
-<!-- =======================
-JS libraries, plugins and custom scripts -->
+    <footer class="">
+             <p class="small text-center mt-2">©2023 <a class="text-body" target="_blank" href="#"> Peba </a></p>
+    </footer>
+<!-- ======================= -->
 
 <!-- Bootstrap JS -->
-<script src="storage/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset("storage/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js")}} "></script>
+
 
 <!-- Vendors -->
-<script src="storage/assets/vendor/tiny-slider/dist/tiny-slider.js"></script>
-<script src="storage/assets/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js"></script>
-<script src="storage/assets/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
-<script src="storage/assets/vendor/glightbox-master/dist/js/glightbox.min.js"></script>
-<script src="storage/assets/vendor/flatpickr/dist/flatpickr.min.js"></script>
-<script src="storage/assets/vendor/plyr/plyr.js"></script>
-<script src="storage/assets/vendor/dropzone/dist/dropzone-amd-module.js"></script>
-<script src="storage/assets/vendor/dropzone/dist/dropzone.js"></script>
-<script src="storage/assets/vendor/zuck.js/dist/zuck.min.js"></script>
-<script src="storage/assets/js/zuck-stories.js"></script>
+<script src="{{asset("storage/assets/vendor/tiny-slider/dist/tiny-slider.js")}}"></script>
+<script src="{{asset("storage/assets/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js")}}"></script>
+<script src="{{asset("storage/assets/vendor/choices.js/public/assets/scripts/choices.min.js")}}"></script>
+<script src="{{asset("storage/assets/vendor/glightbox-master/dist/js/glightbox.min.js")}}"></script>
+<script src="{{asset("storage/assets/vendor/flatpickr/dist/flatpickr.min.js")}}"></script>
+<script src="{{asset("storage/assets/vendor/plyr/plyr.js")}}"></script>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <!-- Theme Functions -->
-<script src="storage/assets/js/functions.js"></script>
-
-
+    <script src="{{asset("storage/assets/js/functions.js")}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous">
+    </script>
 </body>
 </html>
