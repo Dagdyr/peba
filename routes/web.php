@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
+Route::get('/', [ShowController::class, 'ShowAllPosts'])->middleware('auth')->name('ShowAllPosts');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/updateImg', [ProfileController::class,  'updateImg'])->middleware('auth');
 
     Route::post('/addPost', [PostController::class,  'addPost'])->middleware('auth');
+    Route::post('/deletePost', [PostController::class,  'deletePost'])->middleware('auth');
+    Route::post('/editePost', [PostController::class,  'editePost'])->middleware('auth');
     Route::post('/showMyPosts', [PostController::class, 'showMyPosts'])->middleware('auth');
 
 

@@ -117,12 +117,8 @@
                                             </a>
                                             <!-- Card feed action dropdown menu -->
                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardFeedAction1">
-                                                <li><a class="dropdown-item" href="#"> <i class="bi bi-bookmark fa-fw pe-2"></i>Save post</a></li>
-                                                <li><a class="dropdown-item" href="#"> <i class="bi bi-person-x fa-fw pe-2"></i>Unfollow lori ferguson </a></li>
-                                                <li><a class="dropdown-item" href="#"> <i class="bi bi-x-circle fa-fw pe-2"></i>Hide post</a></li>
-                                                <li><a class="dropdown-item" href="#"> <i class="bi bi-slash-circle fa-fw pe-2"></i>Block</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item" href="#"> <i class="bi bi-flag fa-fw pe-2"></i>Report post</a></li>
+                                                <li><button type="button" class="dropdown-item" onclick="deletePost({{$post->id}})"> <i class="bi bi-person-x fa-fw pe-2"></i>Удалить пост</button></li>
+                                                <li><button type="button" class="dropdown-item" onclick="editePost({{$post->id}})"> <i class="bi bi-pencil fa-fw pe-2"></i>Редактировать пост</button></li>
                                             </ul>
                                         </div>
                                         <!-- Card feed action dropdown END -->
@@ -131,33 +127,25 @@
 
                                 <!-- Card header END -->
                                 <!-- Card body START -->
-                                <div class="card-body ">
-                                    <p>{{$post->content}}</p>
+                                <div id="post{{$post->id}}" name="post{{$post->id}}" class="card-body">
+                                    <form id="" name="FormPost{{$post->id}}" novalidate>
+                                        <div id="DivDiv{{$post->id}}" class="">
+                                            <div id="DivPostContent{{$post->id}}" class="">
+                                                <textarea class="form-control-plaintext" maxlength="9999999" readonly name="PostContent{{$post->id}}" id="PostContent{{$post->id}}">{{$post->content}}</textarea>
+                                            </div>
+                                            <div id="DivPostButton{{$post->id}}" class="">
+                                                <button type="button" id="PostFormButton{{$post->id}}" onclick="editePostSave({{$post->id}})" class="btn btn-outline-dark" hidden="true">Сохранить</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                     <!-- Card img -->
                                     <img class="card-img" style="width: 100%;" src="{{asset($post->img)}}" alt="">
-                                    <!-- Feed react START -->
-                                    <!-- Card share action dropdown menu -->
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardShareAction8">
-                                        <li><a class="dropdown-item" href="#"> <i class="bi bi-envelope fa-fw pe-2"></i>Send via Direct Message</a></li>
-                                        <li><a class="dropdown-item" href="#"> <i class="bi bi-bookmark-check fa-fw pe-2"></i>Bookmark </a></li>
-                                        <li><a class="dropdown-item" href="#"> <i class="bi bi-link fa-fw pe-2"></i>Copy link to post</a></li>
-                                        <li><a class="dropdown-item" href="#"> <i class="bi bi-share fa-fw pe-2"></i>Share post via …</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"> <i class="bi bi-pencil-square fa-fw pe-2"></i>Share to News Feed</a></li>
-                                    </ul>
-                                    </li>
-                                    <!-- Card share action END -->
-                                    </ul>
-                                    <!-- Feed react END -->
-                                    <!-- Card body END -->
+
                                 </div>
                             </div>
                         @endforeach
                         <!-- Card feed item START -->
                     </div>
-                    <!-- Card feed item START -->
-
-                    <!-- Card feed item END -->
                 </div>
                 <!-- Main content END -->
 
@@ -198,7 +186,6 @@
                         </div>
                         <!-- Card END -->
 
-                        <!-- Card START -->
                         <div class="col-md-6 col-lg-12">
                             <div class="card">
                                 <!-- Card header START -->
@@ -252,7 +239,9 @@
                                         </div>
 
                                         <div class="col-6">
+
                                             <!-- Friends item START -->
+
                                             <div class="card shadow-none text-center h-100">
                                                 <!-- Card body -->
                                                 <div class="card-body p-2 pb-0">
@@ -274,6 +263,7 @@
                                         <div class="col-6">
                                             <!-- Friends item START -->
                                             <div class="card shadow-none text-center h-100">
+
                                                 <!-- Card body -->
                                                 <div class="card-body p-2 pb-0">
                                                     <div class="avatar avatar-xl">
@@ -282,18 +272,15 @@
                                                     <h6 class="card-title mb-1 mt-3"> <a href="#!"> Amanda Reed </a></h6>
                                                     <p class="mb-0 small lh-sm">15 mutual connections</p>
                                                 </div>
-                                                <!-- Card footer -->
                                                 <div class="card-footer p-2 border-0">
                                                     <button class="btn btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Send message"> <i class="bi bi-chat-left-text"></i> </button>
                                                     <button class="btn btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove friend"> <i class="bi bi-person-x"></i> </button>
                                                 </div>
                                             </div>
-                                            <!-- Friends item END -->
                                         </div>
 
                                     </div>
                                 </div>
-                                <!-- Card body END -->
                             </div>
                         </div>
                         <!-- Card END -->
@@ -302,8 +289,11 @@
                 </div>
                 <!-- Right sidebar END -->
 
-            </div> <!-- Row END -->
+            </div>
+
+            <!-- Row END -->
         </div>
+
         <!-- Container END -->
 
     </main>
@@ -346,7 +336,84 @@
     </div>
     <!-- Добавление конца окно конец -->
 
+
+    {{--<div id="post{{$post->id}}" name="post{{$post->id}}" class="card-body">
+        <form id="PostForm{{$post->id}}" action="">
+            <div class="row mb-3">
+                <div class="col-sm-9">
+                    <textarea class="form-control-plaintext" maxlength="9999999" readonly name="PostContent{{$post->id}}" id="PostContent{{$post->id}}">{{$post->content}}</textarea>
+                </div>
+                <div class="col-sm-2">
+                    <button onclick="editePostSave({{$post->id}})" class="btn btn-outline-dark" hidden="true">Сохранить</button>
+                </div>
+            </div>
+        </form>
+        <!-- Card img -->
+        <img class="card-img" style="width: 100%;" src="{{asset($post->img)}}" alt="">
+        <!-- Feed react START -->
+        <!-- Card share action dropdown menu -->
+        <!-- Feed react END -->
+        <!-- Card body END -->
+    </div>--}}
+
     <script>
+        //Скрипт для изменения поста
+        function editePost(id){
+            let button = document.getElementById("PostFormButton"+ id).hidden=false;
+            let divDiv = document.getElementById("DivDiv"+ id).classList.add('row');
+            let PostContent = document.getElementById("DivPostContent"+ id).classList.add('col-sm-9');
+            let PostButton = document.getElementById("DivPostButton"+ id).classList.add('col-sm-2');
+            document.getElementById("PostContent"+ id).classList.remove('form-control-plaintext');
+            document.getElementById("PostContent"+ id).classList.add('form-control');
+            document.getElementById("PostContent"+ id).removeAttribute('readonly');
+        }
+        function editePostSave(id){
+            let button = document.getElementById("PostFormButton"+ id).hidden=true;
+            let divDiv = document.getElementById("DivDiv"+ id).classList.remove('row');
+            let PostContent = document.getElementById("DivPostContent"+ id).classList.remove('col-sm-9');
+            let PostButton = document.getElementById("DivPostButton"+ id).classList.remove('col-sm-2');
+            document.getElementById("PostContent"+ id).classList.remove('form-control');
+            document.getElementById("PostContent"+ id).classList.add('form-control-plaintext');
+            document.getElementById("PostContent"+ id).setAttribute("readonly", "readonly");
+            let FormName = 'FormPost' + id;
+            let form = document.querySelector(`form[name="${FormName}"]`);
+
+            let token = document.querySelector('input[name="_token"]').value
+            let formData = new FormData(form);
+            formData.append('_token', token);
+            formData.append('id', id);
+            fetch('/editePost', {
+                method: "post",
+                body: formData
+            }).then(response=>response.json())
+                .then(result=>{
+                    if(result.result === "success"){
+                        location.reload();
+                    }else{
+                        alert("Ошибка");
+                    }
+                })
+        }
+
+        //Скрипт для удаления поста
+        function deletePost(id){
+            let token = document.querySelector('input[name="_token"]').value
+            let formData = new FormData();
+            formData.append('_token', token);
+            formData.append('id', id);
+            fetch('/deletePost', {
+                method: "post",
+                body: formData
+            }).then(response=>response.json())
+                .then(result=>{
+                    if(result.result === "success"){
+                        location.reload();
+                    }else{
+                        alert("Ошибка");
+                    }
+                })
+
+        }
         {{--скрипт вытягивающий информацию из формы если она не пустая и отправляющий ее на сервер--}}
         function addPost(){
             let input = document.getElementById("addPost_input");

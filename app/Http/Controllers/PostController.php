@@ -40,4 +40,18 @@ class PostController extends Controller
 
 
     }
+    public function deletePost(Request $request){
+            $postId= $request->id;
+            $post = Posts::where('id', $postId)->delete();
+            return json_encode(['result'=>'success']);
+    }
+    public function editePost(Request $request){
+        $postId= $request->id;
+        $postname = 'PostContent'.$postId;
+        $postContent = $request->$postname;
+        $post = Posts::where('id', $postId)->first();
+        $post->content = $postContent;
+        $post->save();
+        return json_encode(['result'=>'success']);
+    }
 }

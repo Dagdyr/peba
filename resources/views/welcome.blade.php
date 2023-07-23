@@ -41,7 +41,7 @@
                 <!-- Main content START -->
                 <div class="col-md-8 col-lg-6 vstack gap-4">
 
-
+                    @csrf
                     <!-- Добавление поста -->
                     <div class="card card-body">
                         <div class="d-flex mb-3">
@@ -100,15 +100,15 @@
                                     <div class="d-flex align-items-center">
                                         <!-- Avatar -->
                                         <div class="avatar me-2">
-                                            <a href="/profile/{id}"> <img class="avatar-img rounded-circle" src="{{auth()->user()->img}}" alt=""> </a>
+                                            <a href="/profile/{{$post->user->id}}"> <img class="avatar-img rounded-circle" src="{{asset($post->user->img)}}" alt=""> </a>
                                         </div>
                                         <!-- Info -->
                                         <div>
                                             <div class="nav nav-divider">
-                                                <h6 class="nav-item card-title mb-0"> <a href="/profile/{id}">{{auth()->user()->name.' '.auth()->user()->lastname}} </a></h6>
+                                                <h6 class="nav-item card-title mb-0"> <a href="/profile/{{$post->user->id}}">{{$post->user->name.' '.$post->user->lastname}} </a></h6>
                                                 <span class="nav-item small">{{Carbon\Carbon::parse($post->created_at)->translatedFormat('d  F  H:i') }}</span>
                                             </div>
-                                            <p class="mb-0 small">{{auth()->user()->about}}</p>
+                                            <p class="mb-0 small">{{$post->user->about}}</p>
                                         </div>
                                     </div>
                                     <!-- Card feed action dropdown START -->
