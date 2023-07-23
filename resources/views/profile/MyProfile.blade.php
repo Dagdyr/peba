@@ -28,10 +28,45 @@
                                     </div>
                                 </div>
                                 <div class="ms-sm-4 mt-sm-3">
-                                    <div class="mb-3 g-1 row">
+                                    <div class="input-group mb-3 g-1 row">
                                         <!-- Info -->
-                                        <div class="col-sm">
-                                            <input type="text" aria-label="Имя" class="h5 form-control-plaintext" id="userName" readonly value="{{$user->name.' '.' '.$user->lastname}}">
+                                        <div class="col-sm-3">
+                                            <input type="text" aria-label="Имя" class="h5 form-control-plaintext" id="userName" readonly value="{{$user->name}}">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" aria-label="Фамилия" class="h5 form-control-plaintext" id="userLastname" readonly value="{{$user->lastname}}">
+                                        </div>
+                                        <!-- Button -->
+                                        <div class="col-5 ms-auto" id="buttonChangeName">
+                                            <button class="btn btn-outline-danger" id="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Изменить профиль
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li> <button id="changeName" class="dropdown-item" onclick="changeName()">Изменить имя и фамилию</button></li>
+                                                <li><button class="dropdown-item"  type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Изменить изображение профиля</button></li>
+                                                <li><button onclick="logout()" class="dropdown-item"  type="button">Выйти</button></li>
+                                            </ul>
+                                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Изменить аватарку</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            <form id="img_form" enctype="multipart/form-data">
+                                                                <input class="form-control" id="img_input" name="img" type="file">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                            <input type="button" id="changeAvatar" onclick="changeImg()" class="btn btn-primary" data-bs-dismiss="modal" value="Сохранить"></form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -41,8 +76,22 @@
                     </div>
                     <!-- My profile END -->
                     @csrf
+                    <!-- Добавление поста -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex mb-3">
+                                <div class="avatar avatar-xs me-2">
+                                    <img class="avatar-img rounded-circle" src="{{asset($user->img)}}" alt="">
+                                </div>
+                                <form class="w-100">
+                                    <input class="form-control pe-4 border-0" placeholder="Что у вас нового?" data-bs-toggle="modal" data-bs-target="#modalCreateFeed">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Добавление поста конец -->
                     <div class="" id="main_content">
-                       @foreach($posts as $post)
+                        @foreach($posts as $post)
                             <div class="card mb-3">
                                 <!-- Card header START -->
                                 <div class="card-header border-0 pb-0">
@@ -104,6 +153,7 @@
                                 </div>
                             </div>
                         @endforeach
+                        <!-- Card feed item START -->
                     </div>
                     <!-- Card feed item START -->
 
@@ -126,6 +176,7 @@
                                 <!-- Card body START -->
                                 <div class="card-body position-relative pt-0">
                                     <input type="text" id="about"  class="form-control-plaintext" readonly value="{{$user->about}}">
+                                    <input id="change_about" onclick="about()" class="btn btn-primary-soft btn-sm col-sm-4" type="button" value="Изменить">
                                     <!-- Date time -->
                                     <ul class="list-unstyled mt-3 mb-0">
                                         <li class="mb-2"> <i class="bi bi-calendar-date fa-fw pe-1"></i> Дата рождения: <strong> {{$user->birthday}} </strong> </li>
@@ -257,5 +308,166 @@
 
     </main>
     <!-- **************** MAIN CONTENT END **************** -->
+
+    <!-- Добавление поста окно -->
+    <div class="modal fade" id="modalCreateFeed" tabindex="-1" aria-labelledby="modalLabelCreateFeed" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabelCreateFeed">Добавить запись</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex mb-3">
+                        <div class="avatar avatar-xs me-2">
+                            <img class="avatar-img rounded-circle" src="{{asset($user->img)}}" alt="">
+                        </div>
+                        <form id="addPost_form" enctype="multipart/form-data" class="w-100 " novalidate>
+                            <textarea name="post_content" id="addPost_input" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Что у вас нового?" autofocus></textarea>
+                            <input id="file_post" name="file" type="file">
+                            <input type="button" id="addPost_button" onclick="addPost()" aria-label="Close" data-bs-dismiss="modal" class="btn btn-success-soft" value="Опубликовать">
+                        </form>
+                    </div>
+                    <div class="hstack gap-2">
+                        <label for="file_post" class="btn icon-md bg-success bg-opacity-10 text-success rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Photo" >
+                            <i class="bi bi-image-fill"></i>
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer row justify-content-between">
+                    <div class="col-lg-8 align-self-end">
+                        <label for="addPost_button" aria-label="Close" data-bs-dismiss="modal" class="btn btn-success-soft">Опубликовать</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Добавление конца окно конец -->
+
+    <script>
+        {{--скрипт вытягивающий информацию из формы если она не пустая и отправляющий ее на сервер--}}
+        function addPost(){
+            let input = document.getElementById("addPost_input");
+            let file = document.getElementById("file_post");
+
+            if(input.value == '' && file.value == ''){
+                alert("Вы ничего не написали");
+            }else{
+                let token = document.querySelector('input[name="_token"]').value
+                let formData = new FormData(addPost_form);
+                formData.append('_token', token);
+                fetch('/addPost', {
+                    method: "post",
+                    body: formData
+                }).then(response=>response.json())
+                    .then(result=>{
+                        if(result.result === "success"){
+                            location.reload();
+                        }else{
+                            alert("Ошибка");
+                            input.value = '';
+                        }
+                    })
+
+            }
+        }
+        {{--Скрипт для изменеия аватара, в случае если форма не пустая скрипт читает из нее файл и отправляет его на сервер, при получении результата "success" обновляем страницу--}}
+        function changeImg(){
+            let button = document.getElementById("changeAvatar");
+            let img = document.getElementById("img_input");
+
+            if (img.value == ''){
+                alert("Вы не выбрали файл");
+            }else{
+                let token = document.querySelector('input[name="_token"]').value
+                let formData = new FormData(img_form)
+                formData.append('_token', token);
+                fetch('/updateImg', {
+                    method: "post",
+                    body: formData
+                }).then(response=>response.json())
+                    .then(result=>{
+                        if(result.result === "success"){
+                            location.reload();
+                        }
+                    })
+
+            }
+        }
+        {{--скрипт для изменения имени и фамилии--}}
+        function changeName() {
+            let button = document.getElementById("changeName").innerText;
+            let name = document.getElementById("userName");
+            let lastname = document.getElementById("userLastname");
+
+            if (button === 'Изменить имя и фамилию') {
+                document.getElementById("buttonChangeName").innerHTML = '<button id="changeName" onclick="changeName()" class="btn btn-outline-danger" type="button" aria-expanded="false"> сохранить </button>'
+                name.removeAttribute("readonly");
+                name.classList.remove('form-control-plaintext');
+                name.classList.add('form-control');
+                lastname.removeAttribute("readonly");
+                lastname.classList.remove('form-control-plaintext');
+                lastname.classList.add('form-control');
+            } else {
+                document.getElementById("buttonChangeName").innerHTML = '<button class="btn btn-outline-danger" id="" type="button" data-bs-toggle="dropdown" aria-expanded="false">Изменить профиль </button> <ul class="dropdown-menu"> <li> <button id="changeName" class="dropdown-item" onclick="changeName()">Изменить имя и фамилию</button></li> <li><button class="dropdown-item"  type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Изменить изображение профиля</button></li> <li><button onclick="logout()" class="dropdown-item"  type="button">Выйти</button></li> </ul> <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <h1 class="modal-title fs-5" id="staticBackdropLabel">Изменить аватарку</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button> </div> <div class="modal-body"> <form id="img_form" enctype="multipart/form-data"> <input class="form-control" id="img_input" name="img" type="file"> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button> <input type="button" id="changeAvatar" onclick="changeImg()" class="btn btn-primary" data-bs-dismiss="modal" value="Сохранить"></form> </div> </div> </div> </div>'
+                name.setAttribute("readonly", "readonly");
+                lastname.setAttribute("readonly", "readonly");
+                name.classList.remove('form-control');
+                name.classList.add('form-control-plaintext');
+                lastname.classList.remove('form-control');
+                lastname.classList.add('form-control-plaintext');
+                let token = document.querySelector('input[name="_token"]').value
+                let formData = new FormData()
+                formData.append("name", name.value);
+                formData.append("lastname", lastname.value);
+                formData.append('_token', token);
+                fetch('/updateName', {
+                    method: "post",
+                    body: formData
+                });
+            }
+
+        }
+        {{--скрипт для изменения информаци о себе --}}
+        function about(){
+            var button =  document.getElementById('change_about');
+            var input =  document.getElementById('about');
+
+            if (button.value === 'Изменить') {
+                button.value = 'Сохранить';
+                input.classList.remove('form-control-plaintext');
+                input.classList.add('form-control');
+                input.removeAttribute("readonly");
+            } else {
+                button.value = 'Изменить';
+                input.classList.add('form-control-plaintext');
+                input.classList.remove('form-control');
+                input.classList.add('form-control-plaintext');
+                input.setAttribute("readonly", "readonly");
+                let token = document.querySelector('input[name="_token"]').value
+                let formData = new FormData()
+                formData.append("about", input.value);
+                formData.append('_token', token);
+                fetch('/updateAbout', {
+                    method: "post",
+                    body: formData
+                });
+            }
+        }
+        {{--скрипт для выхода со страницы--}}
+        function logout(){
+            let token = document.querySelector('input[name="_token"]').value
+            let formData = new FormData()
+            formData.append('_token', token);
+            fetch('/logout', {
+                method: "post",
+                body: formData
+            });
+            location.reload();
+        }
+    </script>
+
     </body>
 @endsection
