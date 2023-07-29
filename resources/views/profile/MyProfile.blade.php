@@ -129,7 +129,7 @@
                                 <!-- Card body START -->
                                 <div id="post{{$post->id}}" name="post{{$post->id}}" class="card-body">
                                     <form id="" name="FormPost{{$post->id}}" novalidate>
-                                        <div id="DivDiv{{$post->id}}" class="">
+                                        <div id="DivDiv{{$post->id}}" class="mb-2">
                                             <div id="DivPostContent{{$post->id}}" class="">
                                                 <textarea class="form-control-plaintext" maxlength="9999999" readonly name="PostContent{{$post->id}}" id="PostContent{{$post->id}}">{{$post->content}}</textarea>
                                             </div>
@@ -388,7 +388,7 @@
             }).then(response=>response.json())
                 .then(result=>{
                     if(result.result === "success"){
-                        location.reload();
+                        alert("Успешно измененно");
                     }else{
                         alert("Ошибка");
                     }

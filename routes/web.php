@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ShowController;
+use App\Http\Controllers\FriendsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,5 +41,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{userId}', [ShowController::class, 'ShowUserProfile'])->name('profile.edit')->middleware('auth');
     Route::get('/profile', [ShowController::class, 'ShowMyProfile'])->name('MyProfile.edit')->middleware('auth');
 
-
 require __DIR__.'/auth.php';
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

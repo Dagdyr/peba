@@ -55,7 +55,7 @@
                             <a href="/forgot-password">Забыли пароль?</a>
                         </div>
                         <div class="d-grid"><button type="submit" class="btn btn-lg btn-primary">Войти</button></div>
-                        <p class="mb-0 mt-3">©2023 <a target="_blank" href="https://www.webestica.com/">Peba.</a> Все права защищенны</p>
+                        <p class="mb-0 mt-3">©2023 <a target="_blank" href="/">Peba.</a> Все права защищенны</p>
                     </form>
                     <div class="">
                         @if($errors->any())
