@@ -80,95 +80,13 @@
                     <!-- Nav right START -->
                     <ul class="nav flex-nowrap align-items-center ms-sm-3 list-unstyled">
                         <li class="nav-item ms-2">
-                            <a class="nav-link icon-md btn btn-light p-0" href="/messages">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
-                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
-                                </svg>
-                            </a>
+                            <a class="nav-link icon-md btn btn-light p-0" href="/messages"><i class="bi bi-chat-left-text"></i></a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="nav-link icon-md btn btn-light p-0" href="/search"><i class="bi bi-search"></i></a>
                         </li>
                         <li class="nav-item dropdown ms-2">
-                            <a class="nav-link icon-md btn btn-light p-0" href="/friends" id="notifDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                                <span class="badge-notif animation-blink"></span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                    <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
-                                    <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-                                </svg>
-                            </a>
-                            <div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0" aria-labelledby="notifDropdown">
-                                <div class="card">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h6 class="m-0">Notifications <span class="badge bg-danger bg-opacity-10 text-danger ms-2">4 new</span></h6>
-                                        <a class="small" href="#">Clear all</a>
-                                    </div>
-                                    <div class="card-body p-0">
-                                        <ul class="list-group list-group-flush list-unstyled p-2">
-                                            <!-- Notif item -->
-                                            <li>
-                                                <div class="list-group-item list-group-item-action rounded badge-unread d-flex border-0 mb-1 p-3">
-                                                    <div class="avatar text-center d-none d-sm-inline-block">
-                                                        <img class="avatar-img rounded-circle" src="assets/images/avatar/01.jpg" alt="">
-                                                    </div>
-                                                    <div class="ms-sm-3">
-                                                        <div class=" d-flex">
-                                                            <p class="small mb-2"><b>Judy Nguyen</b> sent you a friend request.</p>
-                                                            <p class="small ms-3 text-nowrap">Just now</p>
-                                                        </div>
-                                                        <div class="d-flex">
-                                                            <button class="btn btn-sm py-1 btn-primary me-2">Accept </button>
-                                                            <button class="btn btn-sm py-1 btn-danger-soft">Delete </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!-- Notif item -->
-                                            <li>
-                                                <div class="list-group-item list-group-item-action rounded badge-unread d-flex border-0 mb-1 p-3 position-relative">
-                                                    <div class="avatar text-center d-none d-sm-inline-block">
-                                                        <img class="avatar-img rounded-circle" src="assets/images/avatar/02.jpg" alt="">
-                                                    </div>
-                                                    <div class="ms-sm-3 d-flex">
-                                                        <div>
-                                                            <p class="small mb-2">Wish <b>Amanda Reed</b> a happy birthday (Nov 12)</p>
-                                                            <button class="btn btn-sm btn-outline-light py-1 me-2">Say happy birthday 🎂</button>
-                                                        </div>
-                                                        <p class="small ms-3">2min</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!-- Notif item -->
-                                            <li>
-                                                <a href="#" class="list-group-item list-group-item-action rounded d-flex border-0 mb-1 p-3">
-                                                    <div class="avatar text-center d-none d-sm-inline-block">
-                                                        <div class="avatar-img rounded-circle bg-success"><span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">WB</span></div>
-                                                    </div>
-                                                    <div class="ms-sm-3">
-                                                        <div class="d-flex">
-                                                            <p class="small mb-2">Webestica has 15 like and 1 new activity</p>
-                                                            <p class="small ms-3">1hr</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <!-- Notif item -->
-                                            <li>
-                                                <a href="#" class="list-group-item list-group-item-action rounded d-flex border-0 p-3 mb-1">
-                                                    <div class="avatar text-center d-none d-sm-inline-block">
-                                                        <img class="avatar-img rounded-circle" src="assets/images/logo/12.svg" alt="">
-                                                    </div>
-                                                    <div class="ms-sm-3 d-flex">
-                                                        <p class="small mb-2"><b>Bootstrap in the news:</b> The search giant’s parent company, Alphabet, just joined an exclusive club of tech stocks.</p>
-                                                        <p class="small ms-3">4hr</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="card-footer text-center">
-                                        <a href="#" class="btn btn-sm btn-primary-soft">See all incoming activity</a>
-                                    </div>
-                                </div>
-                            </div>
+                            <a class="nav-link icon-md btn btn-light p-0" href="/friends"><i class="bi bi-people-fill"></i></a>
                         </li>
                         <!-- Notification dropdown END -->
 

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
 use App\Models\Post;
-use Illuminate\Foundation\Auth\User ;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -21,121 +22,6 @@ class ShowController extends Controller
         }
 
     }
-    // Function to return the name of a person on every call
-    /* function generateRandomName()
-    {
-        $firstname = array(
-            'Johnathon',
-            'Anthony',
-            'Erasmo',
-            'Raleigh',
-            'Nancie',
-            'Tama',
-            'Camellia',
-            'Augustine',
-            'Christeen',
-            'Luz',
-            'Diego',
-            'Lyndia',
-            'Thomas',
-            'Georgianna',
-            'Leigha',
-            'Alejandro',
-            'Marquis',
-            'Joan',
-            'Stephania',
-            'Elroy',
-            'Zonia',
-            'Buffy',
-            'Sharie',
-            'Blythe',
-            'Gaylene',
-            'Elida',
-            'Randy',
-            'Margarete',
-            'Margarett',
-            'Dion',
-            'Tomi',
-            'Arden',
-            'Clora',
-            'Laine',
-            'Becki',
-            'Margherita',
-            'Bong',
-            'Jeanice',
-            'Qiana',
-            'Lawanda',
-            'Rebecka',
-            'Maribel',
-            'Tami',
-            'Yuri',
-            'Michele',
-            'Rubi',
-            'Larisa',
-            'Lloyd',
-            'Tyisha',
-            'Samatha',
-        );
-
-        $lastname = array(
-            'Mischke',
-            'Serna',
-            'Pingree',
-            'Mcnaught',
-            'Pepper',
-            'Schildgen',
-            'Mongold',
-            'Wrona',
-            'Geddes',
-            'Lanz',
-            'Fetzer',
-            'Schroeder',
-            'Block',
-            'Mayoral',
-            'Fleishman',
-            'Roberie',
-            'Latson',
-            'Lupo',
-            'Motsinger',
-            'Drews',
-            'Coby',
-            'Redner',
-            'Culton',
-            'Howe',
-            'Stoval',
-            'Michaud',
-            'Mote',
-            'Menjivar',
-            'Wiers',
-            'Paris',
-            'Grisby',
-            'Noren',
-            'Damron',
-            'Kazmierczak',
-            'Haslett',
-            'Guillemette',
-            'Buresh',
-            'Center',
-            'Kucera',
-            'Catt',
-            'Badon',
-            'Grumbles',
-            'Antes',
-            'Byron',
-            'Volkman',
-            'Klemp',
-            'Pekar',
-            'Pecora',
-            'Schewe',
-            'Ramage',
-        );
-
-        $name = $firstname[rand(0, count($firstname) - 1)];
-        /*$name .= ' ';
-        $name .= $lastname[rand(0, count($lastname) - 1)];
-
-        return $name;
-    }*/
 
     //Отображение своего профиля
     public function ShowMyProfile(){
@@ -151,8 +37,4 @@ class ShowController extends Controller
         $posts = Post::where('user_id','!=', $id)->inRandomOrder()->take(5)->get();
         return view('welcome', ['posts'=>$posts]);
     }
-
-
-
-
 }

@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('friends', function (Blueprint $table) {
+            $table->id();
             $table->integer('user_id');
             $table->integer('friend_id');
+            $table->enum('status', ['pending', 'accepted'])->default('pending');
         });
     }
 

@@ -11,6 +11,25 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
 
+    public function friend()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')->wherePivot('status', 'accepted');
+    }
+    public function friendApplication()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')->wherePivot('status', 'pending');
+    }
+
+    public function friendOf()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')->wherePivot('status', 'accepted');
+    }
+    public function allFriends() {
+        $friends = $this->friend->concat($this->friendOf);
+        return $friends;
+    }
+
+
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -27,6 +46,7 @@ class User extends Authenticatable
         'name',
         'lastname',
         'birthday',
+        'img',
         'email',
         'password',
         'about',
