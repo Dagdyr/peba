@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
+use Nette\Utils\Image;
 
 class ProfileController extends Controller
 {
@@ -81,8 +82,11 @@ class ProfileController extends Controller
         $user = User::where('id', $id)->first();
         $lastimg = $user->img;
         Storage::delete($lastimg);
-        $img->storeAS('assets/images/avatar', $id.'.'.$img->getClientOriginalExtension(), 'public');
-        $path = 'images/avatar/'.$id.'.'.$img->getClientOriginalExtension();
+        $imgExt = $img->getClientOriginalExtension();
+        $img = imagecreatefromjpeg($request->file('img'));
+        $newImg = imagescale($img, 200, 200);
+        imagejpeg($newImg, public_path('assets/images/avatar/'.$id.'.'.$imgExt), 90);
+        $path = 'images/avatar/'.$id.'.'.$imgExt;
         $user->img = $path;
         $user->save();
         return json_encode(['result'=>'success']);

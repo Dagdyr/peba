@@ -1,7 +1,98 @@
 @extends('template')
 @section('content')
-    {{--скрипт вытягивающий информацию из формы если она не пустая и отправляющий ее на сервер--}}
     <script>
+
+        // Флаг загрузки данных
+        let loading = false;
+        let loadedPosts = [];
+
+        // Обработчик скролла
+        window.addEventListener('scroll', () => {
+
+            // Высота скролла и страницы
+            let scrollPos = window.scrollY;
+            let maxHeight = document.body.scrollHeight;
+
+            // Проверка доскроллили ли до конца
+            if(scrollPos + window.innerHeight >= maxHeight) {
+
+                // Загрузка выполняется только если флаг false
+                if(!loading) {
+
+                    // Вызов функции загрузки
+                    loadPosts();
+
+                    // Устанавливаем флаг на время загрузки
+                    loading = true;
+                }
+
+            }
+
+        });
+
+            document.addEventListener("DOMContentLoaded", function() {
+
+                document.querySelectorAll('input[name="savePostsId"]').forEach(input => {
+                    let savedId = input.value;
+                    loadedPosts.push(savedId);
+                });
+        })
+
+       function loadPosts(){
+            let token = document.querySelector('input[name="_token"]').value
+            let formData = new FormData();
+            formData.append('_token', token);
+            fetch('/loadPosts', {
+                method: "post",
+                body: formData
+            }).then(response=>response.json())
+                .then(result=>{
+                    result.forEach(post => {
+                        loadedPosts.push(post.id);
+                        let user = post.user;
+                        let html = `
+                        <div class="card mb-3">
+                            <!-- Card header START -->
+                            <div class="card-header border-0 pb-0">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <!-- Avatar -->
+                                        <div class="avatar me-2">
+                                            <a href="/profile/${post.user_id}"> <img class="avatar-img rounded-circle" src="${user.img}" alt=""> </a>
+                                        </div>
+                                        <!-- Info -->
+                                        <div>
+                                            <div class="nav nav-divider">
+                                                <h6 class="nav-item card-title mb-0"> <a href="/profile/${post.user_id}">${user.name+' '+user.lastname} </a></h6>
+                                                <span class="nav-item small">${post.published_at_formatted}</span>
+                                            </div>
+                                            <p class="mb-0 small">${user.about}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card header END -->
+                            <!-- Card body START -->
+                            <div class="card-body ">
+                                <p>${post.content}</p>
+                                <!-- Card img -->
+                                <img class="card-img" style="width: 500px;" src="${post.img}" alt="">
+                                <!-- Card body END -->
+                            </div>
+                        </div>
+                                  `;
+                        document.getElementById('posts').insertAdjacentHTML('beforeend', html);
+                        loading = false;
+                    })
+                })
+           formData.append('loaded', loadedPosts);
+           fetch('/loadPosts', {
+               method: "post",
+               body: formData
+               })
+           }
+
         {{--скрипт вытягивающий информацию из формы если она не пустая и отправляющий ее на сервер--}}
         function addPost(){
             let input = document.getElementById("addPost_input");
@@ -92,7 +183,8 @@
                     <!-- Добавление конца окно конец -->
 
                     <!-- Card feed item START -->
-                    @foreach($posts as $post)
+                    <div class="" id="posts">
+                        @foreach($posts as $post)
                         <div class="card mb-3">
                             <!-- Card header START -->
                             <div class="card-header border-0 pb-0">
@@ -111,22 +203,6 @@
                                             <p class="mb-0 small">{{$post->user->about}}</p>
                                         </div>
                                     </div>
-                                    <!-- Card feed action dropdown START -->
-                                    <div class="dropdown">
-                                        <a href="#" class="text-secondary btn btn-secondary-soft-hover py-1 px-2" id="cardFeedAction1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-three-dots"></i>
-                                        </a>
-                                        <!-- Card feed action dropdown menu -->
-                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardFeedAction1">
-                                            <li><a class="dropdown-item" href="#"> <i class="bi bi-bookmark fa-fw pe-2"></i>Save post</a></li>
-                                            <li><a class="dropdown-item" href="#"> <i class="bi bi-person-x fa-fw pe-2"></i>Unfollow lori ferguson </a></li>
-                                            <li><a class="dropdown-item" href="#"> <i class="bi bi-x-circle fa-fw pe-2"></i>Hide post</a></li>
-                                            <li><a class="dropdown-item" href="#"> <i class="bi bi-slash-circle fa-fw pe-2"></i>Block</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="#"> <i class="bi bi-flag fa-fw pe-2"></i>Report post</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- Card feed action dropdown END -->
                                 </div>
                             </div>
 
@@ -135,33 +211,14 @@
                             <div class="card-body ">
                                 <p>{{$post->content}}</p>
                                 <!-- Card img -->
-                                <img class="card-img" style="width: 100%;" src="{{$post->img}}" alt="">
-                                <!-- Feed react START -->
-                                <!-- Card share action dropdown menu -->
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardShareAction8">
-                                    <li><a class="dropdown-item" href="#"> <i class="bi bi-envelope fa-fw pe-2"></i>Send via Direct Message</a></li>
-                                    <li><a class="dropdown-item" href="#"> <i class="bi bi-bookmark-check fa-fw pe-2"></i>Bookmark </a></li>
-                                    <li><a class="dropdown-item" href="#"> <i class="bi bi-link fa-fw pe-2"></i>Copy link to post</a></li>
-                                    <li><a class="dropdown-item" href="#"> <i class="bi bi-share fa-fw pe-2"></i>Share post via …</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#"> <i class="bi bi-pencil-square fa-fw pe-2"></i>Share to News Feed</a></li>
-                                </ul>
-                                <!-- Card share action END -->
+                                <img class="card-img" style="width: 500px;" src="{{$post->img}}" alt="">
                                 <!-- Feed react END -->
                                 <!-- Card body END -->
                             </div>
                         </div>
+                            <input class="" name="savePostsId" type="hidden" value="{{$post->id}}">
                     @endforeach
-                    <!-- Load more button START -->
-                    <a href="#!" role="button" class="btn btn-loader btn-primary-soft" data-bs-toggle="button" aria-pressed="true">
-                        <span class="load-text"> Load more </span>
-                        <div class="load-icon">
-                            <div class="spinner-grow spinner-grow-sm" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- Load more button END -->
+                    </div>
 
                 </div>
                 <!-- Main content END -->

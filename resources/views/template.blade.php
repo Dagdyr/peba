@@ -94,25 +94,6 @@
                             <a class="nav-link btn icon-md p-0" href="/profile">
                                 <img class="avatar-img rounded-2" src="{{asset(auth()->user()->img)}}" alt="">
                             </a>
-                            <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3" aria-labelledby="profileDropdown">
-                                <!-- Profile info -->
-
-                                <!-- Links -->
-                                <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear fa-fw me-2"></i>Settings & Privacy</a></li>
-                                <li>
-                                    <a class="dropdown-item" href="https://support.webestica.com/" target="_blank">
-                                        <i class="fa-fw bi bi-life-preserver me-2"></i>Support
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="docs/index.html" target="_blank">
-                                        <i class="fa-fw bi bi-card-text me-2"></i>Documentation
-                                    </a>
-                                </li>
-                                <li class="dropdown-divider"></li>
-                                <li><a class="dropdown-item bg-danger-soft-hover" href="sign-in-advance.html"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
-                                <li> <hr class="dropdown-divider"></li>
-                            </ul>
                         </li>
                         <!-- Profile START -->
 

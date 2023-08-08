@@ -12,11 +12,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -147,19 +142,21 @@ class HomeController extends Controller
 
     public function create()
     {
-        $name = $this->generateRandomName();
-        $lastname = $this->generateRandomLastName();
-        $email = $name.rand(19, 59).'@gmail.com';
-        $about = $name.$lastname.rand(99999999, 999999999999);
-        return User::create([
-            'name' => $name,
-            'lastname' => $lastname,
-            'email' => $email,
-            'birthday' => rand(1900, 2020).'-'.rand(1,12).'-'.rand(1, 30),
-            'about' => $about,
-            'img' => 'images/avatar/'.'0'.rand(1,9).'.'.'jpg',
-            'password' => '$2y$10$KZ1VXU0idvVt3k5dfqxZDO2X1NudtKbCMcIAtupDSYToN2nh4/35u',
-        ]);
+        for ($i = 0; $i <= 23; $i++) {
+            $name = $this->generateRandomName();
+            $lastname = $this->generateRandomLastName();
+            $email = $name . rand(19, 59) . '@gmail.com';
+            $about = $name . $lastname . rand(99999999, 999999999999);
+            return User::create([
+                'name' => $name,
+                'lastname' => $lastname,
+                'email' => $email,
+                'birthday' => rand(1900, 2020) . '-' . rand(1, 12) . '-' . rand(1, 30),
+                'about' => $about,
+                'img' => 'images/avatar/' . '0' . rand(1, 9) . '.' . 'jpg',
+                'password' => '$2y$10$KZ1VXU0idvVt3k5dfqxZDO2X1NudtKbCMcIAtupDSYToN2nh4/35u',
+            ]);
+        }
     }
     public function index()
     {

@@ -50,6 +50,10 @@ class FriendsController extends Controller
     public function acceptApplicationRequest($requestId)
     {
         $id = auth()->user()->getAuthIdentifier();
+        $user = User::where('id', $id)->first();
+        $user->increment('friends_count');
+        $user_friend = User::where('id', $requestId)->first();
+        $user_friend->increment('friends_count');
         $friend = Friend::where('user_id', $requestId)
             ->where('friend_id', $id)->first();
         $friend->status = 'accepted';
@@ -67,6 +71,10 @@ class FriendsController extends Controller
     public function deleteFriend($requestId)
     {
         $id = auth()->user()->getAuthIdentifier();
+        $user = User::where('id', $id)->first();
+        $user->decrement('friends_count');
+        $user_friend = User::where('id', $requestId)->first();
+        $user_friend->decrement('friends_count');
         $friend = Friend::where('user_id', $id)
             ->where('friend_id', $requestId)
                 ->orWhere('user_id', $requestId)

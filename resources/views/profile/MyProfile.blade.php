@@ -188,6 +188,12 @@
 
                         <div class="col-md-6 col-lg-12">
                             <div class="card">
+                                @if($user->allFriends()->isEmpty())
+                                    <div
+                                        class="card-header d-sm-flex justify-content-between align-items-center border-0">
+                                        <h5 class="card-title">У вас еще нет друзей</h5>
+                                    </div>
+                                @else
                                 <!-- Card header START -->
                                 <div class="card-header d-sm-flex justify-content-between align-items-center border-0">
                                     <h5 class="card-title">Друзья <span class="badge bg-danger bg-opacity-10 text-danger">{{$user->friends_count}}</span></h5>
@@ -221,6 +227,7 @@
 
                                     </div>
                                 </div>
+                                @endif
                                 <!-- Card body END -->
                             </div>
                         </div>

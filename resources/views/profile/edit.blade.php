@@ -20,9 +20,8 @@
                         <!-- Card body START -->
                         <div class="card-body py-0 row">
                             <!-- Avatar -->
-                            <div class=" mt-n5 col-sm-4" style=" height: 128px;  width: 128px;">
-                                <img height="128" width="128" id="user_avatar"
-                                     class="rounded-circle border border-white"
+                            <div class=" avatar mt-2 col-sm-4" style=" height: 128px;  width: 128px;">
+                                <img  id="user_avatar" width="100%" height="100%" class="rounded-circle border border-white"
                                      src="{{asset($user->img)}}" alt="">
                             </div>
                             <div class="ms-sm-4 mt-sm-3 col-sm-8">
@@ -37,19 +36,25 @@
                                         <div class="col-sm-6 p-2">
                                             @if(\App\Models\Friend::where('user_id', auth()->user()->getAuthIdentifier())->where('friend_id', $user->id)->where('status', 'pending')->exists())
                                                 <button class="btn btn-outline-warning" onclick="sendFriendRequest({{$user->id}})" data-bs-toggle="tooltip" data-bs-placement="top" title="Ожидание ответа на заявку" id="" type="button" aria-expanded="false"><i class="bi bi-arrow-clockwise"></i></button>
-                                            @elseif(\App\Models\Friend::where('user_id', auth()->user()->getAuthIdentifier())->where('friend_id', $user->id)->orWhere('user_id', $user->id)->where('friend_id', auth()->user()->getAuthIdentifier())->exists())
+                                            @elseif(\App\Models\Friend::where('user_id', auth()->user()->getAuthIdentifier())->where('friend_id', $user->id)->orWhere('user_id', $user->id)->where('friend_id', auth()->user()->getAuthIdentifier())->where('status', 'accepted')->exists())
                                                 <button class="btn btn-outline-danger" onclick="delFriend({{$user->id}})" data-bs-toggle="tooltip" data-bs-placement="top" title="Удалить из списка друзей" id="" type="button" aria-expanded="false"><i class="bi bi-person-x"></i></button>
+                                            @elseif(\App\Models\Friend::where('user_id', $user->id)->where('friend_id', auth()->user()->getAuthIdentifier())->where('status', 'pending')->exists())
+                                                <button class="btn btn-outline-warning" onclick="rejectApplicationRequest({{$user->id}})" data-bs-toggle="tooltip" data-bs-placement="top" title="Отклонить заявку в друзья" id="" type="button" aria-expanded="false"><i class="bi bi-person-x"></i></button>
                                             @else
                                                 <button class="btn btn-outline-success" onclick="sendFriendRequest({{$user->id}})" data-bs-toggle="tooltip" data-bs-placement="top" title="Добавить в друзья" id="" type="button" aria-expanded="false"><i class="bi bi-person-add"></i></button>
                                             @endif
 
                                         </div>
                                         <div class="col-sm-6 p-2">
+                                            @if(\App\Models\Friend::where('user_id', $user->id)->where('friend_id', auth()->user()->getAuthIdentifier())->where('status', 'pending')->exists())
+                                                <button class="btn btn-outline-success" onclick="acceptApplicationRequest({{$user->id}})" data-bs-toggle="tooltip" data-bs-placement="top" title="Принять заявку в друзья" id="" type="button" aria-expanded="false"><i class="bi bi-person-check"></i></button>
+                                            @else
                                             <button class="btn btn-outline-primary"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
                                                     title="Написать сообщение" id="" type="button"
                                                     aria-expanded="false"><i class="bi bi-chat-left-text"></i>
                                             </button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +94,7 @@
                                 <div class="card-body ">
                                     <p>{{$post->content}}</p>
                                     <!-- Card img -->
-                                    <img class="card-img" style="width: 100%;" src="{{asset($post->img)}}" alt="">
+                                    <img class="card-img" style="height: 500px" src="{{asset($post->img)}}" alt="">
                                     <!-- Feed react START -->
                                     <!-- Card share action dropdown menu -->
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardShareAction8">
@@ -247,6 +252,24 @@
         }
 
         //Функция для удаления пользователя из списка друзей
+        function acceptApplicationRequest(id) {
+            let token = document.querySelector('input[name="_token"]').value
+            let formData = new FormData()
+            formData.append('_token', token);
+            fetch(`/acceptApplicationRequest/${id}`, {
+                method: "post",
+                body: formData
+            }).then(response => response.json())
+                .then(result => {
+                    if (result.result === "success") {
+                        alert('Заявка в друзья успешно принята!')
+                        location.reload();
+                    } else {
+                        alert('Ошибка, попробуйте позже!')
+                    }
+                })
+
+        }
 
         function delFriend(id){
             let token = document.querySelector('input[name="_token"]').value
@@ -261,6 +284,24 @@
                         alert('Пользователь успешно удален из вашего списка друзей!')
                         location.reload();
                     }else{
+                        alert('Ошибка, попробуйте позже!')
+                    }
+                })
+
+        }
+        function rejectApplicationRequest(id) {
+            let token = document.querySelector('input[name="_token"]').value
+            let formData = new FormData()
+            formData.append('_token', token);
+            fetch(`/rejectApplicationRequest/${id}`, {
+                method: "post",
+                body: formData
+            }).then(response => response.json())
+                .then(result => {
+                    if (result.result === "success") {
+                        alert('Заявка в друзья успешно отклонена!')
+                        location.reload();
+                    } else {
                         alert('Ошибка, попробуйте позже!')
                     }
                 })

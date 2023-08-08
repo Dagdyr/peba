@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/deletePost', [PostController::class,  'deletePost'])->middleware('auth');
     Route::post('/editePost', [PostController::class,  'editePost'])->middleware('auth');
     Route::post('/showMyPosts', [PostController::class, 'showMyPosts'])->middleware('auth');
+    Route::post('/loadPosts', [ShowController::class, 'loadPosts'])->middleware('auth');
 
 
     Route::get('/profile/{userId}', [ShowController::class, 'ShowUserProfile'])->name('profile.edit')->middleware('auth');
@@ -56,5 +57,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/create', [HomeController::class, 'create']);
     Route::get('/createFriend', [CreateContentController::class, 'createFriend']);
+    Route::get('/createPosts/{id}', [CreateContentController::class, 'createPosts']);
 
 require __DIR__.'/auth.php';
