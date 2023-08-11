@@ -37,16 +37,31 @@
                     <form class="mt-sm-4" method="post" action="{{ route('login') }}">
                         @csrf
                         <div class="mb-3 input-group-lg">
-                            <input type="email" class="form-control" name="email" placeholder="Введите email">
+                            <input type="email" id="email" required class="form-control" name="email" placeholder="Введите email">
                         </div>
+                            @if($errors->get('email'))
+                            <div class="danger">
+                                     @foreach($errors->get('email') as $error)
+                                         <p class="">{{$error}}</p>
+                                     @endforeach
+                            </div>
+                             @endif
                         <div class="mb-3 position-relative">
                             <div class="input-group input-group-lg">
-                                <input class="form-control fakepassword" name="password" type="password" id="psw-input" placeholder="Введите пароль">
+                                <input class="form-control fakepassword" name="password" required type="password" id="psw-input" placeholder="Введите пароль">
                                 <span class="input-group-text p-0">
                                        <i class="fakepasswordicon fa-solid fa-eye-slash cursor-pointer p-2 w-40px"></i>
                                 </span>
                             </div>
                         </div>
+                        @if($errors->get('password'))
+                            <div class="alert alert-danger" >
+                                <ul>
+                                    @foreach($errors->get('password') as $error)
+                                        <li class="small">{{$error}}</li>
+                                    @endforeach</ul>
+                            </div>
+                        @endif
                         <div class="mb-3 d-sm-flex justify-content-between">
                             <div>
                                 <input type="checkbox" class="form-check-input" id="remember_me" name="remember" >
@@ -57,16 +72,15 @@
                         <div class="d-grid"><button type="submit" class="btn btn-lg btn-primary">Войти</button></div>
                         <p class="mb-0 mt-3">©2023 <a target="_blank" href="/">Peba.</a> Все права защищенны</p>
                     </form>
-                    <div class="">
-                        @if($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                        <li>{{$error}}</li>
-                                    @endforeach</ul>
-                                @endif
-                            </div>
-                    </div>
+                    @if($errors->get('auth'))
+                        <div class="alert alert-danger" >
+                            <ul>
+                                @foreach($errors->get('auth') as $error)
+                                    <li class="small">{{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

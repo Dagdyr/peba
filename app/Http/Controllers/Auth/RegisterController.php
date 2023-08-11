@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Auth\RegisterRequest;
 
 class RegisterController extends Controller
 {
@@ -21,8 +22,6 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
-    use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -42,36 +41,27 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'birthday' => ['required', 'date', 'max:11'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
-
-    /**
      * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
+     * @param RegisterRequest $request
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(array $request)
     {
+        $validate = $request->validated();
+
         return User::create([
-            'name' => $data['name'],
-            'lastname' => $data['lastname'],
-            'email' => $data['email'],
-            'birthday' => $data['birthday'],
-            'password' => Hash::make($data['password']),
+            'name' => $validate['name'],
+            'lastname' => $validate['lastname'],
+            'email' => $validate['email'],
+            'birthday' => $validate['birthday'],
+            'password' => Hash::make($validate['password']),
         ]);
+    }
+    public function register(RegisterRequest $request)
+    {
+        $validated = $request->validated();
+
+        $user = $this->create($validated);
+
     }
 }

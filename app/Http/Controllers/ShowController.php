@@ -34,21 +34,26 @@ class ShowController extends Controller
         return view('profile.MyProfile', ['posts' => $posts, 'user' => $user]);
     }
 
+    public function loadPage(){
+        return view('welcome');
+    }
+
     //Отображение главной страницы и вывод на неё постов
     public function ShowAllPosts()
     {
         $id = auth()->user()->getAuthIdentifier();
-        $posts = Post::where('user_id', '!=', $id)->inRandomOrder()->paginate(5);
-        return view('welcome', compact('posts'));
+
+        return Post::where('user_id', '!=', $id)->inRandomOrder()->with('user')->paginate(5)->map(function ($post) {
+            $post->published_at_carbon = Carbon::parse($post->created_at);
+            $post->published_at_formatted = $post->published_at_carbon->format('d  F  H:i');
+            return $post;
+        });
     }
 
    /* public function loadPosts(Request $request)
     {
         $id = auth()->user()->getAuthIdentifier();
-        if ($request->has('loaded')) {
-            $loaded = $request->loaded;
-            $parts = explode(",", $loaded);
-            $result = implode(" ", $parts);
+            $page = $request->page;
             $Allposts = Post::where('user_id', '!=', $id)->inRandomOrder()->with('user')->get();
             $posts = $Allposts->except($result)->take(5)->map(function ($post) {
                 $post->published_at_carbon = Carbon::parse($post->created_at);
@@ -57,7 +62,6 @@ class ShowController extends Controller
             });
             $posts->toJson();
             return json_encode($posts);
-        } else {
             $posts = Post::where('user_id', '!=', $id)->inRandomOrder()->take(5)->with('user')->get()->map(function ($post) {
                 $post->published_at_carbon = Carbon::parse($post->created_at);
                 $post->published_at_formatted = $post->published_at_carbon->format('d  F  H:i');
@@ -65,8 +69,8 @@ class ShowController extends Controller
             });
             $posts->toJson();
             return json_encode($posts);
-        }
+        }}*/
 
 
-    }*/
-}
+    }
+

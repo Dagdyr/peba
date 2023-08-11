@@ -33,6 +33,22 @@ class LoginRequest extends FormRequest
     }
 
     /**
+     * Получить сообщения об ошибках для определенных правил валидации.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.required' => 'Поле :attribute обязательно для заполнения',
+            'email.string' => 'Это поле должно быть строкой',
+            'email.email' => 'Введите существующую почту',
+            'password.required' => 'Поле :attribute обязательно для заполнения',
+            'password.string' => 'Это поле должно быть строкой',
+        ];
+    }
+
+    /**
      * Attempt to authenticate the request's credentials.
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -45,7 +61,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'auth' => ('Вы неверно указали email или пароль!'),
             ]);
         }
 

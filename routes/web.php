@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [ShowController::class, 'ShowAllPosts'])->middleware('auth')->name('ShowAllPosts');
+Route::get('/', [ShowController::class, 'loadPage'])->middleware('auth')->name('ShowAllPosts');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/deletePost', [PostController::class,  'deletePost'])->middleware('auth');
     Route::post('/editePost', [PostController::class,  'editePost'])->middleware('auth');
     Route::post('/showMyPosts', [PostController::class, 'showMyPosts'])->middleware('auth');
-    Route::post('/loadPosts', [ShowController::class, 'loadPosts'])->middleware('auth');
+    Route::get('/loadPosts', [ShowController::class, 'ShowAllPosts'])->middleware('auth');
 
 
     Route::get('/profile/{userId}', [ShowController::class, 'ShowUserProfile'])->name('profile.edit')->middleware('auth');

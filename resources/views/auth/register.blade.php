@@ -46,27 +46,27 @@
                         @csrf
                         <!-- Email -->
                         <div class="mb-3 input-group-lg">
-                            <input name="name" type="text" class="form-control" placeholder="Введите имя">
+                            <input name="name" required type="text" class="form-control" placeholder="Введите имя">
                         </div>
                         <div class="mb-3 input-group-lg">
-                            <input name="lastname"  type="text" class="form-control" placeholder="Введите фамилию">
+                            <input name="lastname" required type="text" class="form-control" placeholder="Введите фамилию">
                         </div>
                         <div class="mb-3 input-group-lg">
-                            <input name="birthday" type="date" class="form-control" placeholder="Укажите дату своего рождения">
+                            <input name="birthday" required type="date" class="form-control" placeholder="Укажите дату своего рождения">
                         </div>
                         <div class="mb-3 input-group-lg">
-                            <input name="email" type="email" class="form-control" placeholder="Введите email">
+                            <input name="email" required type="email" class="form-control" placeholder="Введите email">
                         </div>
                         <!-- New password -->
                         <div class="mb-3 position-relative">
                             <!-- Input group -->
                             <div class="input-group input-group-lg">
-                                <input class="form-control fakepassword" type="password" name="password" id="password" placeholder="Придумайте пароль">
+                                <input class="form-control fakepassword" required type="password" name="password" id="password" placeholder="Придумайте пароль">
                             </div>
                         </div>
                         <!-- Confirm password -->
                         <div class="mb-3 input-group-lg">
-                            <input class="form-control" type="password" name="password_confirmation" placeholder="Подтвердите пароль">
+                            <input class="form-control" type="password" required name="password_confirmation" placeholder="Подтвердите пароль">
                         </div>
                         <!-- Button -->
                        <input type="submit" class="form-control btn btn-lg btn-primary" value="Зарегистрироваться" >
