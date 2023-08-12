@@ -35,7 +35,11 @@ class ShowController extends Controller
     }
 
     public function loadPage(){
-        return view('welcome');
+        if (count(Post::where('user_id', '!=', auth()->user()->getAuthIdentifier())->get())){
+            return view('welcome');
+        }else{
+            return view('empWelcome');
+        }
     }
 
     //Отображение главной страницы и вывод на неё постов

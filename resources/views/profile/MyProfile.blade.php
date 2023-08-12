@@ -31,10 +31,10 @@
                                     <div class="input-group mb-3 g-1 row">
                                         <!-- Info -->
                                         <div class="col-sm-3">
-                                            <input type="text" aria-label="Имя" class="h5 form-control-plaintext" id="userName" readonly value="{{$user->name}}">
+                                            <input type="text" aria-label="Имя" onkeyup="const spaceRegex = /\s\s+/g;const regex = /['0-9',' ','A-z','',':','_','@','#','!','№',';','$','%','^','?','&','*','(',')','=','+','{','}','<','>','.','~']/;if(spaceRegex.test(this.value)) {this.value = this.value.replace(spaceRegex, ' ');}if(regex.test(this.value)) {this.value = this.value.replace(regex, '');}" class="h5 form-control-plaintext" id="userName" readonly value="{{$user->name}}">
                                         </div>
                                         <div class="col-sm-4">
-                                            <input type="text" aria-label="Фамилия" class="h5 form-control-plaintext" id="userLastname" readonly value="{{$user->lastname}}">
+                                            <input type="text" aria-label="Фамилия" onkeyup="const spaceRegex = /\s\s+/g;const regex = /['0-9',' ','A-z','',':','_','@','#','!','№',';','$','%','^','?','&','*','(',')','=','+','{','}','<','>','.','~']/;if(spaceRegex.test(this.value)) {this.value = this.value.replace(spaceRegex, ' ');}if(regex.test(this.value)) {this.value = this.value.replace(regex, '');}" class="h5 form-control-plaintext" id="userLastname" readonly value="{{$user->lastname}}">
                                         </div>
                                         <!-- Button -->
                                         <div class="col-5 ms-auto" id="buttonChangeName">

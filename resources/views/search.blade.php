@@ -4,7 +4,7 @@
             <div class="container col-md-7">
 
 
-                <h2>Поиск <i class="bi bi-search"></i></h2>
+                <h2>Найти пользователей <i class="bi bi-search"></i></h2>
                 <div class="col-sm-12 mb-2">
                     <form class="">
                         <div class="row">
