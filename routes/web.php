@@ -53,11 +53,4 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/search', [ShowController::class, 'search'])->middleware('auth');
 
-    Route::get('/chat/{userId}')->name('chat');
-
-
-    Route::get('/create', [HomeController::class, 'create']);
-    Route::get('/createFriend', [CreateContentController::class, 'createFriend']);
-    Route::get('/createPosts/{id}', [CreateContentController::class, 'createPosts']);
-
 require __DIR__.'/auth.php';

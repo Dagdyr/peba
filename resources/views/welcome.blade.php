@@ -172,40 +172,7 @@
 
                     <!-- Card feed item START -->
                     <div class="" id="posts">
-                      {{--  @foreach($posts as $post)
-                        <div class="card mb-3">
-                            <!-- Card header START -->
-                            <div class="card-header border-0 pb-0">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <!-- Avatar -->
-                                        <div class="avatar me-2">
-                                            <a href="/profile/{{$post->user->id}}"> <img class="avatar-img rounded-circle" src="{{asset($post->user->img)}}" alt=""> </a>
-                                        </div>
-                                        <!-- Info -->
-                                        <div>
-                                            <div class="nav nav-divider">
-                                                <h6 class="nav-item card-title mb-0"> <a href="/profile/{{$post->user->id}}">{{$post->user->name.' '.$post->user->lastname}} </a></h6>
-                                                <span class="nav-item small">{{Carbon\Carbon::parse($post->created_at)->translatedFormat('d  F  H:i') }}</span>
-                                            </div>
-                                            <p class="mb-0 small">{{$post->user->about}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!-- Card header END -->
-                            <!-- Card body START -->
-                            <div class="card-body ">
-                                <p>{{$post->content}}</p>
-                                <!-- Card img -->
-                                <img class="card-img" style="width: 500px;" src="{{$post->img}}" alt="">
-                                <!-- Feed react END -->
-                                <!-- Card body END -->
-                            </div>
-                        </div>
-                            <input class="" name="savePostsId" type="hidden" value="{{$post->id}}">
-                    @endforeach--}}
                     </div>
 
                 </div>

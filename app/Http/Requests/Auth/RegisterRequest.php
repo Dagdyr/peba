@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -25,7 +26,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'birthday' => ['required', 'date', 'max:11'],
+            'birthday' => ['required', 'max:10', 'before:'.Carbon::today()],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
@@ -46,8 +47,8 @@ class RegisterRequest extends FormRequest
             'password.required' => 'Поле :attribute обязательно для заполнения',
             'password.min' => 'Пароль должен быть не меньше 8 символов',
             'password.confirmed' => 'Пароль и его подтверждение не совпадают',
-            'birthday.date' => 'Поле дата должно быть реальной датой ',
-            'birthday.max' => 'Поле дата должно иметь не больше 11 символов',
+            'birthday.before' => 'Вы ввели невозможную дату рождения',
+            'birthday.max' => 'Вы ввели невозможную дату рождения',
         ];
     }
 }
