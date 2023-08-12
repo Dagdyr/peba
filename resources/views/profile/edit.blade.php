@@ -193,7 +193,7 @@
                                                         <!-- Friends item START -->
                                                         <div class="card shadow-none text-center h-100">
                                                             <!-- Card body -->
-                                                            <div class="card-body p-2 pb-0">
+                                                            <div class="card-body p-2 pb-0" style="overflow-x:hidden;">
                                                                 <div class="avatar avatar-xl">
                                                                     <a href="/profile/{{$friend->id}}"><img
                                                                             class="avatar-img rounded-circle"
@@ -202,7 +202,7 @@
                                                                 <h6 class="card-title mb-1 mt-3"><a
                                                                         href="/profile/{{$friend->id}}"> {{$friend->name.' '.$friend->lastname}} </a>
                                                                 </h6>
-                                                                <p class="mb-0 small lh-sm">{{$friend->about}}</p>
+                                                                <p class="mb-0 small lh-sm" style="max-height: 40px">{{$friend->about}}</p>
                                                             </div>
                                                         </div>
                                                         <!-- Friends item END -->

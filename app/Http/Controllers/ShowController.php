@@ -50,26 +50,32 @@ class ShowController extends Controller
         });
     }
 
-   /* public function loadPosts(Request $request)
-    {
-        $id = auth()->user()->getAuthIdentifier();
-            $page = $request->page;
-            $Allposts = Post::where('user_id', '!=', $id)->inRandomOrder()->with('user')->get();
-            $posts = $Allposts->except($result)->take(5)->map(function ($post) {
-                $post->published_at_carbon = Carbon::parse($post->created_at);
-                $post->published_at_formatted = $post->published_at_carbon->format('d  F  H:i');
-                return $post;
-            });
-            $posts->toJson();
-            return json_encode($posts);
-            $posts = Post::where('user_id', '!=', $id)->inRandomOrder()->take(5)->with('user')->get()->map(function ($post) {
-                $post->published_at_carbon = Carbon::parse($post->created_at);
-                $post->published_at_formatted = $post->published_at_carbon->format('d  F  H:i');
-                return $post;
-            });
-            $posts->toJson();
-            return json_encode($posts);
-        }}*/
+
+    public function search(Request $request){
+        if ($request->search == null){
+            $id = auth()->user()->getAuthIdentifier();
+            $users = User::where('id', '!=' , $id)->inRandomOrder()->paginate(20);
+            $searchRequest = '';
+            return view('search', ['users'=>$users, 'searchRequest'=>$searchRequest]);
+        }
+        else{
+            $search = $request->search;
+            $searchArr =  explode(' ', $search);
+            if (count($searchArr)<2 or $searchArr[1] == ' '){
+                $users = User::where('name', 'LIKE', "%{$searchArr[0]}%")->orwhere('lastname', 'LIKE', "%{$searchArr[0]}%" )->paginate(20);
+                $searchRequest = $searchArr[0];
+                return view('search', ['users'=>$users, 'searchRequest'=>$searchRequest]);
+            }else{
+                 $name = $searchArr[0];
+                 $lastname = $searchArr[1];
+                 $users = User::where('name', 'LIKE', "%{$name}%")->where('lastname', 'LIKE', "%{$lastname}%")->orwhere('name', 'LIKE', "%{$lastname}%")->where('lastname', 'LIKE', "%{$name}%")->paginate(20);
+                 $searchRequest = $searchArr[0].' '.$searchArr[1];
+                return view('search', ['users'=>$users, 'searchRequest'=>$searchRequest]);
+            }
+
+
+        }
+    }
 
 
     }

@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/rejectApplicationRequest/{userId}', [FriendsController::class, 'rejectApplicationRequest'])->name('rejectApplicationRequest')->middleware('auth');
     Route::post('/friend/reject/{requestId}', [FriendsController::class, 'deleteFriend'])->middleware('auth');
 
+    Route::get('/search', [ShowController::class, 'search'])->middleware('auth');
 
     Route::get('/chat/{userId}')->name('chat');
 

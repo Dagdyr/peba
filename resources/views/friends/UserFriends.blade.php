@@ -14,7 +14,7 @@
                     <!-- Friends item START -->
                     <div class="card shadow-none text-center h-100 m-2 col-sm-2">
                         <!-- Card body -->
-                        <div class="card-body" style="max-height: 193px;">
+                        <div class="card-body" style="max-height: 193px; overflow-x:hidden;">
                             <div class="avatar avatar-xl">
                                 <a href="{{route('profile.edit', ['userId'=> $friend->id])}}"><img
                                         class="avatar-img rounded-circle" src="{{asset($friend->img)}}" alt=""></a>

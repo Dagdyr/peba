@@ -46,10 +46,10 @@
                         @csrf
                         <!-- Email -->
                         <div class="mb-3 input-group-lg">
-                            <input name="name" required type="text" class="form-control" placeholder="Введите имя">
+                            <input name="name" required type="text" class="form-control" onkeyup="var yratext=/['0-9','A-z',' ',':','_','@','/','#','!','No',';','$','%','^','?','&','*','(',')','=','+','{','}','<','>','.','~']/;if(yratext.test(this.value)) {this.value = this.value.replace(yratext, '');}"  placeholder="Введите имя">
                         </div>
                         <div class="mb-3 input-group-lg">
-                            <input name="lastname" required type="text" class="form-control" placeholder="Введите фамилию">
+                            <input name="lastname" required type="text" class="form-control" onkeyup="var yratext=/['0-9','A-z',' ',':','_','@','/','#','!','No',';','$','%','^','?','&','*','(',')','=','+','{','}','<','>','.','~']/;if(yratext.test(this.value)) {this.value = this.value.replace(yratext, '');}"  placeholder="Введите фамилию">
                         </div>
                         <div class="mb-3 input-group-lg">
                             <input name="birthday" required type="date" class="form-control" placeholder="Укажите дату своего рождения">
